@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.first_name + " " + @user.last_name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @user.phone %>
+</p>
+
+<% if !@user.group_id.present? %>
+  <p> This user has not joined any groups </p>
+<% elsif @user.group_id.present? %>
+  <table>
+    <tr>
+      <th>Group</th>
+      <th>Joined</th>
+    </tr>
+    <% @user.membership.each do |g| %>
+      <% e = @user.membership[g].group_id %>
+      <% group = Group.find_by(id: e) %>
+      <td><%= group.name %></td>
+    <% end %>
+  </table>
+<% end %>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
