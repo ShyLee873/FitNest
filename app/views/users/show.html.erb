@@ -2,7 +2,7 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @user.first_name + " " + @user.last_name %>
+  <%= @user.full_name %>
 </p>
 
 <p>
@@ -15,19 +15,30 @@
   <%= @user.phone %>
 </p>
 
-<% if !@user.group_id.present? %>
-  <p> This user has not joined any groups </p>
-<% elsif @user.group_id.present? %>
+<!-- membership display table -->
+
+<% if !@user.groups.exists? %>
+  <p>This user has not joined any groups</p>
+<% elsif @user.groups.exists?%>
   <table>
     <tr>
       <th>Group</th>
-      <th>Joined</th>
+      <th>Activity</th>
+      <th>Senior?</th>
     </tr>
-    <% @user.membership.each do |g| %>
-      <% e = @user.membership[g].group_id %>
-      <% group = Group.find_by(id: e) %>
-      <td><%= group.name %></td>
-    <% end %>
+
+    <!-- lists current groups & activity type in table data cells -->
+    <!-- Further help needed figuring out how to display the "joined on" date -->
+    <% @user.groups.each do |group| %>
+      <tr>
+        <td><%= group.name %></td>
+        <td><%= group.activity_type %></td>
+        <% if group.senior === true %>
+          <td>Y</td>
+        <% else %><td>N</td>
+        <% end %> 
+      </tr>   
+    <% end %>   
   </table>
 <% end %>
 

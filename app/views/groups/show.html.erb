@@ -10,10 +10,35 @@
   <%= @group.activity_type %>
 </p>
 
-<p>
-  <strong>Senior:</strong>
-  <%= @group.senior %>
-</p>
+<% if @group.senior === true %>
+  <p>This group is for swolemates aged 65+</p>
+<% else %>
+  <p>We welcome all swolemates of all ages!</p>
+<% end %>
+
+<!-- group members display-->
+
+<% if !@group.users.exists? %>
+  <p>This group has no current members</p>
+<% else %>
+  <table>
+    <tr>
+      <th>Member</th>
+      <th>Email</th>
+    </tr>
+
+    <!-- lists current members in table data cells -->
+
+    <% @group.users.each do |users| %>
+      <tr>
+        <td><%= users.full_name%></td>
+        <td><%= users.email%></td>
+
+        
+      </tr>
+    <% end %>  
+  </table>
+<% end %>
 
 <%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>
