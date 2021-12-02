@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :catch_not_found
   before_action :set_user, only: %i[ show edit update destroy ]
   
 
@@ -76,4 +77,11 @@ class UsersController < ApplicationController
         @membership = Membership.create(group_id: @user.group_id, user_id: @user.id)
       end
     end
+
+    def catch_not_found(error)
+      Rails.logger.debug("Oops! We had a 'not found exception.' Redirecting to index.")
+      flash.alert = error.to_s
+      redirect_to users_path
+    end
+
 end

@@ -25,10 +25,11 @@
       <th>Group</th>
       <th>Activity</th>
       <th>Senior?</th>
+      <th>Joined</th>
     </tr>
 
-    <!-- lists current groups & activity type in table data cells -->
-    <!-- Further help needed figuring out how to display the "joined on" date -->
+    <!-- lists current group data in table data cells -->
+    
     <% @user.groups.each do |group| %>
       <tr>
         <td><%= group.name %></td>
@@ -37,6 +38,7 @@
           <td>Y</td>
         <% else %><td>N</td>
         <% end %> 
+        <td><%= group.memberships.find_by(user_id: @user.id, group_id: group.id).created_at.to_date %></td>
       </tr>   
     <% end %>   
   </table>
