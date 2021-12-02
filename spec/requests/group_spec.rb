@@ -31,9 +31,6 @@ RSpec.describe "GroupsControllers", type: :request do
             expect(response).to render_template(:edit)
         end
     end
-
-    # Unsure why these tests return an error
-
     describe "post groups_path with valid data" do
         it "saves a new entry and redirects to the show path for the new group entry" do
             group_attributes = FactoryBot.attributes_for(:group)
@@ -45,7 +42,7 @@ RSpec.describe "GroupsControllers", type: :request do
         it "does not save an entry or redirect" do
             group_attributes = FactoryBot.attributes_for(:group)
             group_attributes.delete(:name)
-            expect( post groups_path, params: {group: group_attributes}).not_to change(Group, :count)
+            expect { post groups_path, params: {group: group_attributes}}.not_to change(Group, :count)
             expect(response).to render_template(:new)
         end
     end
