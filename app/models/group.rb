@@ -17,5 +17,5 @@ class Group < ApplicationRecord
     validates :name, presence: true
     validates :activity_type, presence: true
     validates :senior, presence: true
-    #validates_associated :user_id, through: :memberships
+    
 end
