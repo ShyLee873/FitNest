@@ -25,6 +25,7 @@
     <tr>
       <th>Member</th>
       <th>Email</th>
+      <th>Joined</th>
     </tr>
 
     <!-- lists current members in table data cells -->
@@ -33,8 +34,7 @@
       <tr>
         <td><%= users.full_name%></td>
         <td><%= users.email%></td>
-
-        
+        <td><%= users.memberships.find_by(user_id: users.id, group_id: @group.id).created_at.to_date %></td>
       </tr>
     <% end %>  
   </table>

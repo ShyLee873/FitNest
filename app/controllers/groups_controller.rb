@@ -1,4 +1,5 @@
 class GroupsController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :catch_not_found
   before_action :set_group, only: %i[ show edit update destroy ]
 
   # GET /groups or /groups.json
@@ -66,4 +67,11 @@ class GroupsController < ApplicationController
     def group_params
       params.require(:group).permit(:name, :activity_type, :senior, user_ids: [])
     end
+
+    def catch_not_found(error)
+      Rails.logger.debug("Oops! We had a 'not found exception.' Redirecting to index.")
+      flash.alert = error.to_s
+      redirect_to groups_path
+    end
+
 end

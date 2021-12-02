@@ -14,8 +14,8 @@
 class Group < ApplicationRecord
     has_many :memberships
     has_many :users, through: :memberships
-    validates_associated :user_id
     validates :name, presence: true
     validates :activity_type, presence: true
-    
+    validates :senior, presence: true
+    #validates_associated :user_id, through: :memberships
 end
