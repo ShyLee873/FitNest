@@ -26,6 +26,17 @@
     <%= form.check_box :senior %>
   </div>
 
+  <div class="field">
+    <%= form.label :about_us %>
+    <%= form.text_area :about_us %>
+  </div>
+
+  
+  <div>
+    <%= form.label "Group Profile Photo" %>
+    <%= form.file_field :avatar %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

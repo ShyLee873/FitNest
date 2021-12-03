@@ -68,7 +68,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :phone, :group_id)
+      params.require(:user).permit(:first_name, :last_name, :email, :phone, :group_id, :avatar, :about_me)
     end
 
     #Setting scope for membership reference
@@ -76,6 +76,10 @@ class UsersController < ApplicationController
       if @user.group_id.present?
         @membership = Membership.create(group_id: @user.group_id, user_id: @user.id)
       end
+    end
+
+    def avatar
+      @user.avatar.attach(params[:avatar])
     end
 
     def catch_not_found(error)

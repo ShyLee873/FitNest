@@ -16,6 +16,6 @@ class Group < ApplicationRecord
     has_many :users, through: :memberships
     validates :name, presence: true
     validates :activity_type, presence: true
-    validates :senior, presence: true
-    
+    validates_inclusion_of :senior, in: [true, false] 
+    has_one_attached :avatar 
 end

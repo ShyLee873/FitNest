@@ -1,5 +1,11 @@
 <p id="notice"><%= notice %></p>
 
+<% if @group.avatar.attached? %>
+  <img src="<%=(url_for(@group.avatar))%>" class="avatar" alt="<%= @group.name%>">
+<% else %>
+  <%= image_tag "group_ph.jpg", class:"avatar" %>
+<%end%>
+
 <p>
   <strong>Name:</strong>
   <%= @group.name %>
@@ -9,6 +15,15 @@
   <strong>Activity type:</strong>
   <%= @group.activity_type %>
 </p>
+
+<% if @group.about_us === nil %>
+  <p>Help others connect! What does this group do? When do they do it? Where does it happen?</p>
+<% else %>
+  <p>
+    <strong>About Us:</strong>
+    <%= @group.about_us %>
+  </p>  
+<% end %>
 
 <% if @group.senior === true %>
   <p>This group is for swolemates aged 65+</p>
