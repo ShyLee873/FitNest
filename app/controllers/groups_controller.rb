@@ -65,7 +65,11 @@ class GroupsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def group_params
-      params.require(:group).permit(:name, :activity_type, :senior, user_ids: [])
+      params.require(:group).permit(:name, :activity_type, :about_us, :avatar, :senior, user_ids: [])
+    end
+
+    def avatar
+      @group.avatar.attach(params[:avatar])
     end
 
     def catch_not_found(error)

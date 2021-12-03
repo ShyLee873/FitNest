@@ -1,3 +1,10 @@
 // Place all the styles related to the Groups controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.avatar {
+    height: 300px; 
+    width: 300px; 
+    max-width: 300px; 
+    max-height: 300px;
+}

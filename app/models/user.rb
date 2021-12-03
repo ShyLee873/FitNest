@@ -21,6 +21,7 @@ class User < ApplicationRecord
     validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
     has_many :memberships
     has_many :groups, through: :memberships
+    has_one_attached :avatar 
 
     def full_name
         "#{first_name} #{last_name}"

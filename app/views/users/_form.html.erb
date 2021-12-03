@@ -36,6 +36,16 @@
     <%= form.collection_select :group_id, Group.all, :id, :name, include_blank: true %>
   </div>
 
+  <div>
+    <%= form.label "Profile Photo" %>
+    <%= form.file_field :avatar %>
+  </div>
+
+  <div class="field">
+    <%= form.label :about_me %>
+    <%= form.text_area :about_me %>
+  </div>
+  <br>
   <div class="actions">
     <%= form.submit %>
   </div>
