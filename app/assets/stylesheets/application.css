@@ -15,3 +15,24 @@
  *= require_self
  */
 
+.jumbotron {
+    background-image: url('https://i.imgur.com/s4iVpqn.jpg');
+    background-size: cover;
+    height: 100%;
+    opacity: 1;
+}
+
+@font-face {
+    font-family: 'PermanentMarker';
+    src: url('PermanentMarker.ttf');
+}
+
+.perm {
+    font-family: 'PermanentMarker';
+}
+
+body {
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}

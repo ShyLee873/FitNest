@@ -1,5 +1,21 @@
-<h1>New User</h1>
+<div class="container mt-3 mx-auto">
+  <div class="row justify-content-around">
+    <div class="col-4 text-center">
+      <h3 class="font-weight-bold text-center">New User Sign-up</h3>
+      <br>
+      <p><em>"It is not in numbers, but in unity, that our great strength lies." <br>-Thomas Paine</em></p>
+      <h4>Welcome to Fitnest!</h4><br>
+      <p>By signing up, you are taking the next step in levelling up your fitness journey.<br> Whether you're just starting out or a seasoned athlete, you're sure to find a group full of awesome people with similar fitness goals.<br><br>Working out with a group has many incredible benefits including:<br><br>Increased muscle activiy<br>Improved energy levels<br>Unparalled motivation<br>Healthy competition<br><br>And above all, accountability. Group support is proven to help us stay on track and achieve our fitness goals. </p>
 
-<%= render 'form', user: @user %>
+      <br><br><%= link_to 'Back', groups_path, class: "btn btn-sm btn-warning" %>
+    </div>
 
-<%= link_to 'Back', users_path %>
+
+    <div class="col-5 mx-5">
+      <%= render 'form', user: @user %>
+    </div>
+  </div>
+</div>
+
+
+

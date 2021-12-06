@@ -1,6 +1,19 @@
-<h1>Editing User</h1>
+<div class="container mt-3 mx-auto">
+  <div class="row justify-content-around">
+    <div class="col-4 text-center">
+      <h3 class="font-weight-bold text-center">Edit My Details</h3>
+      <br>
+      <p><em>“Setting goals is the first step in turning the invisible into the visible.”<br>-Tony Robbins</em></p>
+      <h4>Need to change something?</h4><br>
+      <p>Then you've come to the right place. Here you can update your personal details or add a group!</p>
 
-<%= render 'form', user: @user %>
+      <br><br><%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-warning" %>
+    </div>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+
+    <div class="col-5 mx-5">
+      <%= render 'form', user: @user %>
+    </div>
+  </div>
+</div>
+
