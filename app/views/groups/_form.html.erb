@@ -11,33 +11,40 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="mb-2">
+        <%= form.label "Group Name *", {class: "form-label font-weight-bold"} %>
+        <%= form.text_field :name, {class: "form-control", placeholder: "Enter a new group name"} %> 
+      </div>  
+      
+      <div class="mb-2">
+        <%= form.label "Activity Type *", {class: "form-label font-weight-bold"} %>
+        <%= form.text_field :activity_type, {class: "form-control", placeholder: "What type of activity?"} %>
+      </div>
 
-  <div class="field">
-    <%= form.label :activity_type %>
-    <%= form.text_field :activity_type %>
-  </div>
+      <div class="mb-1 text-left">
+        <%= form.label "Senior?", {class: "form-label font-weight-bold"} %>
+        <small>Check here if your group is aimed at those 65+</small>
+        <%= form.check_box :senior, {class: "form-control"} %>
+      </div>
 
-  <div class="field">
-    <%= form.label :senior %>
-    <%= form.check_box :senior %>
-  </div>
+      <div class="mb-2">
+        <%= form.label :about_us, {class: "form-label font-weight-bold"} %>
+        <%= form.text_area :about_us, { class: "form-control", placeholder: "Tell us a a little about your group" } %>
+      </div>
 
-  <div class="field">
-    <%= form.label :about_us %>
-    <%= form.text_area :about_us %>
-  </div>
+      
+      <div class="mb-3">
+        <%= form.label "Group Profile Photo", {class: "form-label font-weight-bold"} %>
+        <%= form.file_field :avatar, {class: "form-control btn-sm"} %>
+      </div>
 
-  
-  <div>
-    <%= form.label "Group Profile Photo" %>
-    <%= form.file_field :avatar %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+      <div class="actions text-center">
+        <%= form.submit "Let's Go!", class: "btn btn-block btn-warning" %>
+      </div>
+      <br>
+      <small>Fields marked with * are required</small>
+    </div>
   </div>
 <% end %>

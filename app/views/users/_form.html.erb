@@ -11,42 +11,47 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name %>
-  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="mb-2">
+        <%= form.label "First Name *", {class: "form-label font-weight-bold"} %>
+        <%= form.text_field :first_name, {class: "form-control", placeholder: "Enter your first name"} %>
+      </div>
 
-  <div class="field">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name %>
-  </div>
+      <div class="mb-2">
+        <%= form.label "Last Name *", {class: "form-label font-weight-bold"} %>
+        <%= form.text_field :last_name, {class: "form-control", placeholder: "Enter your last name"} %>
+      </div>
 
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
+      <div class="mb-2">
+        <%= form.label "Email *", {class: "form-label font-weight-bold"} %>
+        <%= form.text_field :email, {class: "form-control", placeholder: "Enter your email"} %>
+      </div>
 
-  <div class="field">
-    <%= form.label :phone %>
-    <%= form.text_field :phone %>
-  </div>
+      <div class="mb-2">
+        <%= form.label "Phone *", {class: "form-label font-weight-bold"} %>
+        <%= form.text_field :phone, {class: "form-control", placeholder: "Enter your phone number"} %>
+        <small>Numbers only, no dashes</small>
+      </div>
 
-  <div class="field">
-    <%= form.label :group %>
-    <%= form.collection_select :group_id, Group.all, :id, :name, include_blank: true %>
-  </div>
+      <div class="mb-2">
+        <%= form.label "Group", {class: "form-label font-weight-bold"} %>
+        <%= form.collection_select :group_id, Group.all, :id, :name, include_blank: true %>
+      </div>
 
-  <div>
-    <%= form.label "Profile Photo" %>
-    <%= form.file_field :avatar %>
-  </div>
+      <div class="mb-3">
+        <%= form.label "Profile Photo", {class: "form-label font-weight-bold"} %>
+        <%= form.file_field :avatar, {class: "form-control btn-sm"} %>
+      </div>
 
-  <div class="field">
-    <%= form.label :about_me %>
-    <%= form.text_area :about_me %>
-  </div>
-  <br>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+      <div class="mb-2">
+        <%= form.label "About me", {class: "form-label font-weight-bold"} %>
+        <%= form.text_area :about_me, { class: "form-control", placeholder: "Tell us a a little about yourself" } %>
+      </div>
+      <br>
+      <div class="actions">
+        <%= form.submit "Let's Go!", class: "btn btn-block btn-warning"  %>
+      </div>
+    </div>  
+  </div>  
 <% end %>

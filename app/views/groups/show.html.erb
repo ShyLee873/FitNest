@@ -1,59 +1,62 @@
 <p id="notice"><%= notice %></p>
 
-<% if @group.avatar.attached? %>
-  <img src="<%=(url_for(@group.avatar))%>" class="avatar" alt="<%= @group.name%>">
-<% else %>
-  <%= image_tag "group_ph.jpg", class:"avatar" %>
-<%end%>
 
-<p>
-  <strong>Name:</strong>
-  <%= @group.name %>
-</p>
+<div class="container mx-auto pt-4 mb-5">
+  <div class="row justify-content-around">
+    <div class="col-6 text-center">
+      <% if @group.avatar.attached? %>
+        <img src="<%=(url_for(@group.avatar))%>" class="avatar" alt="<%= @group.name%>">
+      <% else %>
+        <%= image_tag "group_ph.jpg", class:"avatar" %>
+      <%end%>
 
-<p>
-  <strong>Activity type:</strong>
-  <%= @group.activity_type %>
-</p>
+      <% if @group.senior === true %>
+         <p>This group is for swolemates aged 65+</p>
+      <% else %>
+        <p>We welcome all swolemates of all ages!</p>
+      <% end %>
+    </div>
 
-<% if @group.about_us === nil %>
-  <p>Help others connect! What does this group do? When do they do it? Where does it happen?</p>
-<% else %>
-  <p>
-    <strong>About Us:</strong>
-    <%= @group.about_us %>
-  </p>  
-<% end %>
+    <div class="col text-center">
+      
+      <h1 class="display-4 text-center font-weight-bold"><%= @group.name %></h1>
 
-<% if @group.senior === true %>
-  <p>This group is for swolemates aged 65+</p>
-<% else %>
-  <p>We welcome all swolemates of all ages!</p>
-<% end %>
+      <h3 class="text-muted text-center perm"><%= @group.activity_type %></h3><br>
 
-<!-- group members display-->
+        <% if @group.about_us === nil %>
+          <p class="alert alert-warning" role="alert">Help others connect! What does this group do? When do they do it? Where does it happen?</p>
+        <% else %>
+          <p>
+            <%= @group.about_us %>
+          </p>  
+        <% end %>
+      <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-sm btn-warning" %>
+    </div>
+  </div>
 
-<% if !@group.users.exists? %>
-  <p>This group has no current members</p>
-<% else %>
-  <table>
-    <tr>
-      <th>Member</th>
-      <th>Email</th>
-      <th>Joined</th>
-    </tr>
+  <div class="container text-center my-3">
+    <h3 class="font-weight-bold">Members</h3>
+  </div>
 
-    <!-- lists current members in table data cells -->
+  <div class="row my-3 justify-content-center d-flex flex-wrap">
 
-    <% @group.users.each do |users| %>
-      <tr>
-        <td><%= users.full_name%></td>
-        <td><%= users.email%></td>
-        <td><%= users.memberships.find_by(user_id: users.id, group_id: @group.id).created_at.to_date %></td>
-      </tr>
-    <% end %>  
-  </table>
-<% end %>
+      <!-- group members display-->
 
-<%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
+      <% if !@group.users.exists? %>
+        <p>This group has no current members</p>
+      <% else %>
+        <% @group.users.each do |users| %>
+          <div class="card mx-1" style="width: 10rem;">
+            <div class="card-body text-center">
+              <h5 class="card-title"><%= users.first_name%></h5>
+              <p class="card-text"> Joined <br><%= @group.name %><br> on <br><%= users.memberships.find_by(user_id: users.id, group_id: @group.id).created_at.to_date %></p>
+              <%= link_to "Visit", user_path(users), class: "btn btn-sm btn-warning" %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+  </div> 
+  <div class="container my-5 text-center">
+    <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-warning" %>
+  </div>  
+</div>
