@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <div class="container">
-  <h1 class="text-center">Users</h1>
+  <h1 class="text-center font-weight-bold my-4">Users</h1>
 
   <table class="table table-striped mx-auto align-center">
     <thread>
@@ -29,7 +29,8 @@
     </tbody>
   </table>
 
-  <br>
-
-  <%= link_to 'New User', new_user_path %>
+  <div class="row justify-content-center">
+    <%= link_to 'New User', new_user_path, class: "btn btn-md btn-warning mx-1" %>
+    <%= link_to 'Back', url_for(:back), class: "btn btn-md btn-warning mx-1" %>
+  </div>  
 </div>  

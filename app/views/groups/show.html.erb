@@ -15,6 +15,13 @@
       <% else %>
         <p>We welcome all swolemates of all ages!</p>
       <% end %>
+
+      <% if @group.gym_required === true %>
+        <p>**This group requires a gym membership**<br>see group description for more details</p>
+      <% else %>
+        <p>No gym membership required</p>
+      <% end %>
+
     </div>
 
     <div class="col text-center">
@@ -35,7 +42,7 @@
   </div>
 
   <div class="container text-center my-3">
-    <h3 class="font-weight-bold">Members</h3>
+    <h3 class="font-weight-bold">Members(<%= @group.memberships.count %>)</h3>
   </div>
 
   <div class="row my-3 justify-content-center d-flex flex-wrap">

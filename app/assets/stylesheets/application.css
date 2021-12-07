@@ -15,6 +15,12 @@
  *= require_self
  */
 
+body {
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 .jumbotron {
     background-image: url('https://i.imgur.com/s4iVpqn.jpg');
     background-size: cover;
@@ -22,17 +28,36 @@
     opacity: 1;
 }
 
+.landing{
+    height: 100px; 
+    width: 10 rem; 
+    max-width: 300px; 
+    max-height: 300px;
+}
+
 @font-face {
     font-family: 'PermanentMarker';
     src: url('PermanentMarker.ttf');
+}
+
+@font-face{
+    font-family: 'barcadbold';
+    src: url('barcadbold.ttf');
+}
+
+.barcad {
+    font-family: 'barcadbold';
 }
 
 .perm {
     font-family: 'PermanentMarker';
 }
 
-body {
-    margin-top: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-}
+.footer {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    
+    }

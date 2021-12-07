@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <div class="container">
-  <h1 class="text-center">Groups</h1>
+  <h1 class="text-center font-weight-bold my-4">Groups</h1>
 
   <table class="table table-striped mx-auto align-center">
     <thread>
@@ -32,5 +32,8 @@
 
   <br>
 
-  <%= link_to 'New Group', new_group_path %>
+  <div class="row justify-content-center">
+    <%= link_to 'New Group', new_group_path, class: "btn btn-md btn-warning mx-1" %>
+    <%= link_to 'Back', url_for(:back), class: "btn btn-md btn-warning mx-1" %>
+  </div>  
 </div>  

@@ -1,0 +1,20 @@
+<div class="container mt-5 text-center">
+  <h1 class="display-4 font-weight-bold ">WELCOME TO THE NEST</h1><br>
+  <h3 class="perm text-muted">Where do you want to go?</h3>
+
+  <div class="row justify-content-center mt-5">
+    <div class="card mx-4" style="width: 10rem;">
+      <%= image_tag "group_ph.jpg", class: "landing" %>
+      <div class="card-body">
+      <%= link_to "Groups", groups_path, class: "btn btn-lg btn-warning" %>
+     </div>
+    </div>
+
+    <div class="card mx-4" style="width: 10rem;">
+      <%= image_tag "user_ph.jpg", class: "landing" %>
+      <div class="card-body">
+      <%= link_to "Users", users_path, class: "btn btn-lg btn-warning" %>
+     </div>
+    </div>
+  </div>  
+</div>
