@@ -29,11 +29,10 @@
           <% @user.groups.each do |group| %>
             <div class="card mx-1 my-1" style="width: 8rem;">
               <div class="card-body text-center">
-               <h5 class="card-title"><%= group.name %></h5>
-               <p class="card-text"><%= group.activity_type %></p>
-               <p class="card-text">Joined<br><%= group.memberships.find_by(user_id: @user.id, group_id: group.id).created_at.to_date %></p>
-               <%= link_to "Visit", group_path(group), class: "btn btn-sm btn-warning" %>
-               <small>remove</small>
+                <h5 class="card-title"><%= group.name %></h5>
+                <p class="card-text"><%= group.activity_type %></p>
+                <p class="card-text">Joined<br><%= group.memberships.find_by(user_id: @user.id, group_id: group.id).created_at.to_date %></p>
+                <%= link_to "Visit", group_path(group), class: "btn btn-sm btn-warning" %>
               </div>
             </div>
           <% end %>   
@@ -56,3 +55,4 @@
     </div>  
   </div>
 </div>
+

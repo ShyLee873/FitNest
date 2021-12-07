@@ -88,4 +88,8 @@ class UsersController < ApplicationController
       redirect_to users_path
     end
 
+    # def delete_group
+    #   @user.memberships.find_by(user_id: @user.id, group_id: group.id).destroy
+    # end
+
 end
