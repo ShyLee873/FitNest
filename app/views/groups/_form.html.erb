@@ -23,10 +23,17 @@
         <%= form.text_field :activity_type, {class: "form-control", placeholder: "What type of activity?"} %>
       </div>
 
-      <div class="mb-1 text-left">
+      <div class="mb-2 text-left">
         <%= form.label "Senior?", {class: "form-label font-weight-bold"} %>
         <small>Check here if your group is aimed at those 65+</small>
         <%= form.check_box :senior, {class: "form-control"} %>
+
+      </div>
+
+      <div class="mb-2 text-left">
+        <%= form.label "Gym Membership Required?", {class: "form-label font-weight-bold"} %>
+        <small>Check here if a gym membership is required</small>
+        <%= form.check_box :gym_required, {class: "form-control"} %>
       </div>
 
       <div class="mb-2">

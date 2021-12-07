@@ -33,6 +33,7 @@
                <p class="card-text"><%= group.activity_type %></p>
                <p class="card-text">Joined<br><%= group.memberships.find_by(user_id: @user.id, group_id: group.id).created_at.to_date %></p>
                <%= link_to "Visit", group_path(group), class: "btn btn-sm btn-warning" %>
+               <small>remove</small>
               </div>
             </div>
           <% end %>   

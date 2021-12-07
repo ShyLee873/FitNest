@@ -17,5 +17,6 @@ class Group < ApplicationRecord
     validates :name, presence: true
     validates :activity_type, presence: true
     validates_inclusion_of :senior, in: [true, false] 
+    validates_inclusion_of :gym_required, in: [true, false] 
     has_one_attached :avatar 
 end
