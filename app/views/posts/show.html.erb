@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+<% user = User.find_by(id: @post.user_id) %>
+
+<div class="container-fluid my-5">
+  <div class="row justify-content-center">
+    <div class="card" style="width: 40rem;">
+      <h3 class="card-header bg-warning text-center font-weight-bold"> 
+        <img src="<%=(url_for(user.avatar))%>" class="thumbnail" alt="<%= user.full_name%>">
+        <%= user.first_name %>
+      </h3>
+      <div class="card-body text-center mb-3">
+        <h5 class="card-title font-weight-bold"><%= @post.title %></h5>
+        <p class="mb-5"><%= @post.content %></p>
+        <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-sm btn-warning" %>
+        <%= link_to 'Back' , user_path(user), class: "btn btn-sm btn-warning" %>
+      </div>
+    </div>
+  </div>  
+</div>
+
+
+
+
+
+
