@@ -1,0 +1,14 @@
+<div class="container mx-auto">
+  <div class = "row justify-content-around mt-5">
+    <div class="card text-center" style="width: 40rem;">
+      <h3 class="card-header bg-warning font-weight-bold text-center">New Post<h3>
+      <div class="card-body">
+        <%= render 'form', post: @post %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<%= link_to 'Back', posts_path %>

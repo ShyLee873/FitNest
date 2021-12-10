@@ -1,58 +1,128 @@
 <p id="notice"><%= notice %></p>
 
-<div class="container mx-auto pt-4" >
-  <div class="row justify-content-around">
-    <div class="col-6 text-center">
-      <% if @user.avatar.attached? %>
-        <img src="<%=(url_for(@user.avatar))%>" class="avatar" alt="<%= @user.full_name%>">
-      <% else %>
-        <%= image_tag "user_ph.jpg", class:"avatar" %>
-      <%end%>
-      <br>
-      <p>
-        <strong>Email:</strong>
-        <%= @user.email %><br>
-        <strong>Phone:</strong>
-        <%= @user.phone %>
-      </p>
 
-
-      <div class="container">
+  <div class="row justify-content-center mx-2 my-5 pl-5 pr-2">
+    <div class="col-4 text-center">
+      <div class="card text-center mb-5 card-bg">
+        <div class="card-header border-warning bg-warning">
+          <h1 class="display-5 text-center font-weight-bold"><%= @user.full_name %></h1>
+        </div>
+        <div class="card-body card-bg">
+          <% if @user.avatar.attached? %>
+            <img src="<%=(url_for(@user.avatar))%>" class="avatar" alt="<%= @user.full_name%>">
+          <% else %>
+            <%= image_tag "user_ph.jpg", class:"avatar" %>
+          <%end%>
+        </div>
+        <div class="card-footer border-warning bg-warning text-center">
+          <h6 class="font-weight-bold">
+            <i class="fas fa-envelope-open-text"></i>
+            <%= @user.email %><br>
+          </h6>
+          <h6 class="font-weight-bold">  
+            <i class="fas fa-mobile"></i>
+            <%= @user.phone %>
+          </h6>
+        </div>
+      </div>
+      
 
       <!-- membership display -->
 
-      <% if !@user.groups.exists? %>
-        <p>I haven't joined any groups yet</p>
-      <% elsif @user.groups.exists?%>
-        <h5 class="font-weight-bold">I'm a proud member of:</h5>
-        <div class="row my-3 justify-content-center d-flex flex-wrap">
-          <% @user.groups.each do |group| %>
-            <div class="card mx-1 my-1" style="width: 8rem;">
-              <div class="card-body text-center">
-                <h5 class="card-title"><%= group.name %></h5>
-                <p class="card-text"><%= group.activity_type %></p>
-                <p class="card-text">Joined<br><%= group.memberships.find_by(user_id: @user.id, group_id: group.id).created_at.to_date %></p>
-                <%= link_to "Visit", group_path(group), class: "btn btn-sm btn-warning" %>
+      <div class="card">
+        <% if !@user.groups.exists? %>
+          <h6 class="card-header bg-warning text-center">Get connected! Join a group</h6>
+        <% elsif @user.groups.exists?%>
+          <h5 class="card-header bg-warning font-weight-bold">My Groups</h5>
+          <div class="row my-3 justify-content-center d-flex flex-wrap">
+            <% @user.groups.each do |group| %>
+              <div class="card mx-1 my-1" style="width: 8rem;">
+                <h5 class="card-header bg-warning text-center"><%= group.name %></h5>
+                <div class="card-body text-center card-bg">
+                  <p class="card-text"><%= group.activity_type %></p>
+                  <p class="card-text">Joined<br><%= group.memberships.find_by(user_id: @user.id, group_id: group.id).created_at.to_date %></p>
+                </div>
+                <div class="card-footer text-center border-top-0">  
+                  <%= link_to "Visit", group_path(group), class: "btn btn-small btn-warning" %>
+                </div>
               </div>
-            </div>
-          <% end %>   
-        </div>
-      <% end %>
+            <% end %>   
+          </div>
+        <% end %>
       </div>
-
-      <div class="container text-center">
-        <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-warning" %>
-      </div>   
-
     </div>
 
-    <div class="col text-center">
-      <h1 class="display-5 text-center font-weight-bold"><%= @user.full_name %></h1>
-      <div class="container mx-auto my-5 text-center">
-        <p class="font-weight-light text-center"><%= simple_format(@user.about_me) %></p>
+    <!-- /membership display -->
+
+    <!-- Middle col -->
+
+    <div class="col-md">
+      <div class="row justify-content-center">
+        <div class="card mb-3 mx-1 my-1 card-bg" style="width: 38rem;">
+          <h3 class="card-header bg-warning text-center font-weight-bold">About Me</h3>
+          <div class="card-body text-center">
+            <% if @user.about_me === nil %>
+              <p class="card-text text-center">Tell us about yourself!</p>
+            <% else %>
+              <p class="card-text"><%= simple_format(@user.about_me) %></p>
+            <% end %>
+
+            
+          </div>
+        </div>
       </div>
-      <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-sm btn-warning" %>
+
+      <div class="row justify-content-center">
+        <div class="card mb-3 mx-1 my-1 card-bg" style="width: 38rem;">
+          <h3 class="card-header bg-warning text-center font-weight-bold">Latest Posts</h3>
+          <div class="card-body text-center">
+            <% if !@user.posts.exists? %>
+              <%= link_to "New Post", new_post_path, class: "btn btn-sm btn-warning" %>
+            <% elsif @user.posts.exists? %>
+              <% @user.posts.each do |post| %>
+                <div class="card border border-warning  mx-1 my-3" style="width: 32 rem;">
+                  <div class="card-header text-center mt-1">
+                      <h6 class="font-weight-bold" ><%= post.title %></h6>
+                  </div>
+                    
+                  <div class="card-body text-center">
+                  <small class="card-title"><%= post.created_at.to_date %></small>
+                    <p class="card-text mt-2"><%= post.content%></p>
+                  </div>
+
+                  <div class="card-footer text-center text-muted">
+                    <%= link_to "Edit Post", edit_post_path(post) %> |
+                    <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+                  </div>
+                </div>      
+              <% end %>  
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      
     </div>  
+
+    <!-- /Middle col -->
+
+    <!-- User Nav -->
+
+    <div class="col- pl-5 pr-0">
+      <nav class="nav flex-column text-right">
+        <li class="nav-item mb-2">
+          <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-warning btn-sm btn-block" %>
+        </li>
+        <li class="nav-item mb-2">
+          <%= link_to "Add New Post", new_user_post_path(controller: "posts", action: "create", user_id: @user.id.to_i ), class: "btn btn-warning btn-sm btn-block"  %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Back', url_for(:back), class: "btn btn-warning btn-sm btn-block" %>
+        </li>
+      </nav>
+    </div>
+    
+    <!-- /User Nav -->
   </div>
-</div>
+
 

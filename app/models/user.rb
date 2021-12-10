@@ -22,6 +22,7 @@ class User < ApplicationRecord
     has_many :memberships
     has_many :groups, through: :memberships
     has_one_attached :avatar 
+    has_many :posts
 
     def full_name
         "#{first_name} #{last_name}"

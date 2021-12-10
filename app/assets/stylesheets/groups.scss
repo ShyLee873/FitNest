@@ -2,9 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.avatar {
-    height: 300px; 
-    width: 300px; 
-    max-width: 300px; 
-    max-height: 300px;
+.footer {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    text-align: center;
 }
