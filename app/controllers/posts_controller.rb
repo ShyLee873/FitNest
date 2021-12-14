@@ -13,17 +13,18 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    @user_id = params[:user_id]
   end
 
   # GET /posts/1/edit
   def edit
+    
   end
 
   # POST /posts or /posts.json
   def create
+    @user_id = params[:user_id]
     @post = Post.new(post_params)
-    @post.user_id = params[:user_id].to_i
-  
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: "Post was successfully created." }
@@ -39,6 +40,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
+        @user_id = params[:user_id]
         format.html { redirect_to @post, notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -54,7 +56,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
+      format.html { redirect_to user_url(id: @post.user_id), notice: "Post was successfully destroyed." }
       format.json { head :no_content }
     end
   end

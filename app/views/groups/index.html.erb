@@ -6,6 +6,7 @@
   <table class="table table-striped mx-auto align-center">
     <thread>
       <tr>
+        <th>Profile</th>
         <th>Name</th>
         <th>Activity type</th>
         <th>Senior</th>
@@ -17,6 +18,11 @@
     <tbody>
       <% @groups.each do |group| %>
         <tr>
+          <% if group.avatar.present? %>
+            <td><%= image_tag group.avatar, class: "thumbnail" %></td>
+          <% else %>
+            <td><%= image_tag "group_ph.jpg", class: "thumbnail" %></td>
+          <% end %>
           <td><%= group.name %></td>
           <td><%= group.activity_type %></td>
           <td><%= group.senior %></td>

@@ -1,11 +1,11 @@
-<p id="notice"><%= notice %></p>
+<p class="text-center" id="notice"><%= notice %></p>
 
 <div class="container-fluid">
   <div class="row justify-content-center my-4 pl-5 pr-2">
 
     <!-- Profile photo -->
 
-    <div class="col-md-6 px-5 mx-auto">
+    <div class="col-md-6 px-5 mb-5 mx-auto">
       <div class="card text-center">
         <h1 class="card-header bg-warning text-center font-weight-bold"><%= @group.name %></h1>
         <h3 class="card-title text-muted text-center perm pt-2"><%= @group.activity_type %></h3> 
@@ -18,7 +18,7 @@
         </div>
 
         <div class="card-body mt-0">
-          <% if @group.about_us === nil %>
+          <% if !@group.about_us.present? %>
             <p class="alert alert-warning" role="alert">Help others connect! What does this group do? When do they do it? Where does it happen?</p>
           <% else %>
             <p><%= @group.about_us %></p>  
@@ -51,17 +51,27 @@
           <h3 class="font-weight-bold">Members(<%= @group.memberships.count %>)</h3>
         </div>
         <div class="card-body card-bg">
-          <div class="row">
+          <div class="row justify-content-center">
             <% if !@group.users.exists? %>
               <p>This group has no current members</p>
             <% else %>
               <% @group.users.each do |users| %>
-                <div class="card mx-1" style="width: 10rem;">
+                <div class="card mx-1" style="width: 9rem;">
+                  <h5 class="card-header text-center"><%= users.first_name%></h5>
                   <div class="card-body text-center">
-                    <h5 class="card-title"><%= users.first_name%></h5>
-                    <p class="card-text"> Joined <br><%= @group.name %><br> on <br><%= users.memberships.find_by(user_id: users.id, group_id: @group.id).created_at.to_date %></p>
-                    <%= link_to "Visit", user_path(users), class: "btn btn-sm btn-warning" %>
+                    <% if users.avatar.present? %>
+                      <%= image_tag users.avatar, class: "thumbnail" %>
+                    <% else %>
+                      <%= image_tag "user_ph.jpg", class: "thumbnail"%>
+                    <% end %>                   
+                    <p> Joined <br><%= @group.name %><br> on <br><%= users.memberships.find_by(user_id: users.id, group_id: @group.id).created_at.to_date %></p>
+
                   </div>
+                  <div class="card-footer text-center">
+                    <%= link_to "Visit", user_path(users), class: "btn btn-sm btn-warning" %><br>
+                    <small><%= link_to "remove", delete_user_membership_path(user_id: users.id, group_id: @group.id), method: :delete %></small>
+                  </div>
+                  
                 </div>
               <% end %>
             <% end %>
@@ -79,6 +89,9 @@
       <nav class="nav flex-column text-right">
         <li class="nav-item mb-2">
           <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-warning btn-sm btn-block" %>
+        </li>
+        <li class="nav-item mb-2">
+        <%= link_to 'Delete', @group, method: :delete, data: { confirm: 'Are you sure? Super sure??' }, class: "btn btn-secondary text-white btn-sm btn-block" %>
         </li>
         <li class="nav-item">
           <%= link_to 'Back', url_for(:back), class: "btn btn-warning btn-sm btn-block" %>

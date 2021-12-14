@@ -6,6 +6,7 @@
   <table class="table table-striped mx-auto align-center">
     <thread>
       <tr>
+        <th>Profile</th>
         <th>Name</th>
         <th>Email</th>
         <th>Phone</th>
@@ -16,6 +17,11 @@
     <tbody>
       <% @users.each do |user| %>
         <tr>
+          <% if user.avatar.present? %>
+            <td><%= image_tag user.avatar, class: "thumbnail" %></td>
+          <% else %>
+            <td><%= image_tag "user_ph.jpg", class: "thumbnail" %></td>
+          <% end %>
           <td><%= user.first_name + " " + user.last_name %></td>
           <td><%= user.email %></td>
           <td><%= user.phone %></td>

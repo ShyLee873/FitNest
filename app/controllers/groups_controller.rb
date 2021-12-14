@@ -56,6 +56,14 @@ class GroupsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def delete_user_membership
+    Membership.find_by(user_id: params[:user_id], group_id: params[:id]).destroy
+    respond_to do |format|
+      format.html { redirect_to group_path(params[:id]), notice: "Member deleted" }
+      format.json { head :no_content }
+    end  
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
