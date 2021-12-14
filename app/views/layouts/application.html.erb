@@ -23,7 +23,7 @@
       </div>
 
       <% if !flash[:alert].nil? %>
-      <p class="my_alert"><%= flash[:alert] %></p>
+      <p class="my_alert text-center"><%= flash[:alert] %></p>
       <% end %>
 
       <!-- navbar -->
@@ -52,9 +52,6 @@
               <%= link_to 'Groups', groups_path, class: "dropdown-item" %>
               <%= link_to 'New Group', new_group_path, class: "dropdown-item" %>
             </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About Fitnest</a>
           </li>
         </ul>
       </nav>

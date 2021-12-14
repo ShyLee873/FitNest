@@ -60,6 +60,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def delete_membership
+    Membership.find_by(user_id: params[:id], group_id: params[:group_id]).destroy
+    respond_to do |format|
+      format.html { redirect_to user_path(params[:id]), notice: "You are no longer a member of this group." }
+      format.json { head :no_content }
+    end  
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -88,8 +96,5 @@ class UsersController < ApplicationController
       redirect_to users_path
     end
 
-    # def delete_group
-    #   @user.memberships.find_by(user_id: @user.id, group_id: group.id).destroy
-    # end
 
 end

@@ -1,9 +1,9 @@
-<p id="notice"><%= notice %></p>
+<p class="text-center" id="notice"><%= notice %></p>
 
 
   <div class="row justify-content-center mx-2 my-5 pl-5 pr-2">
-    <div class="col-4 text-center">
-      <div class="card text-center mb-5 card-bg">
+    <div class="col-4 text-center mb-3">
+      <div class="card text-center mb-3 card-bg">
         <div class="card-header border-warning bg-warning">
           <h1 class="display-5 text-center font-weight-bold"><%= @user.full_name %></h1>
         </div>
@@ -28,8 +28,12 @@
       
 
       <!-- membership display -->
+     
+     <div class="row justify-content-center">
+     <%= render 'mem_form', user: @user %>
+     </div> 
 
-      <div class="card">
+      <div class="card border">
         <% if !@user.groups.exists? %>
           <h6 class="card-header bg-warning text-center">Get connected! Join a group</h6>
         <% elsif @user.groups.exists?%>
@@ -40,10 +44,18 @@
                 <h5 class="card-header bg-warning text-center"><%= group.name %></h5>
                 <div class="card-body text-center card-bg">
                   <p class="card-text"><%= group.activity_type %></p>
+
+                  <% if group.avatar.present? %>
+                    <%= image_tag group.avatar, class: "thumbnail" %>
+                  <% else %>
+                    <%= image_tag "group_ph.jpg", class: "thumbnail"%>
+                  <% end %>
+
                   <p class="card-text">Joined<br><%= group.memberships.find_by(user_id: @user.id, group_id: group.id).created_at.to_date %></p>
                 </div>
                 <div class="card-footer text-center border-top-0">  
                   <%= link_to "Visit", group_path(group), class: "btn btn-small btn-warning" %>
+                  <small><%= link_to "remove", delete_membership_path(user_id: @user.id, group_id: group.id), method: :delete %></small>
                 </div>
               </div>
             <% end %>   
@@ -61,16 +73,18 @@
         <div class="card mb-3 mx-1 my-1 card-bg" style="width: 38rem;">
           <h3 class="card-header bg-warning text-center font-weight-bold">About Me</h3>
           <div class="card-body text-center">
+
             <% if @user.about_me === nil %>
               <p class="card-text text-center">Tell us about yourself!</p>
             <% else %>
               <p class="card-text"><%= simple_format(@user.about_me) %></p>
             <% end %>
 
-            
           </div>
         </div>
       </div>
+
+      <!-- Post display -->
 
       <div class="row justify-content-center">
         <div class="card mb-3 mx-1 my-1 card-bg" style="width: 38rem;">
@@ -100,7 +114,8 @@
           </div>
         </div>
       </div>
-
+     
+      <!-- /Post display -->
       
     </div>  
 
@@ -114,7 +129,10 @@
           <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-warning btn-sm btn-block" %>
         </li>
         <li class="nav-item mb-2">
-          <%= link_to "Add New Post", new_user_post_path(controller: "posts", action: "create", user_id: @user.id.to_i ), class: "btn btn-warning btn-sm btn-block"  %>
+          <%= link_to "Add New Post", new_user_post_path(@user.id.to_i), class: "btn btn-warning btn-sm btn-block"  %>
+        </li>
+        <li class="nav-item mb-2">
+          <%= link_to 'Destroy', @user, method: :delete, data: { confirm: "Are you sure you're ready to quit this journey?" }, class: "btn btn-secondary text-white btn-block" %>
         </li>
         <li class="nav-item">
           <%= link_to 'Back', url_for(:back), class: "btn btn-warning btn-sm btn-block" %>

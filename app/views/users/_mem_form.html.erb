@@ -1,0 +1,30 @@
+<%= form_with(model: user) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+  
+      <ul>
+        <% post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="card border-0 mb-3">
+    <div class="body">
+      <div class="mb-2">
+        <%= form.label "Group", {class: "form-label font-weight-bold"} %>
+        <%= form.collection_select :group_id,  Group.all, :id, :name, include_blank: true %>
+      </div>
+      
+      <div class="actions">
+        <%= form.submit "join", class: "btn btn-sm btn-warning" %>
+      </div>
+    </div>
+  </div>
+    
+<% end %>
+
+
+
