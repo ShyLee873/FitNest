@@ -53,6 +53,11 @@
               <%= link_to 'New Group', new_group_path, class: "dropdown-item" %>
             </div>
           </li>
+          <li class="nav-item dmenu">
+            <%if user_signed_in?%>
+            <%= link_to 'Log Out', signout_path, class: "nav-link text-white" %>
+            <%end%>
+          </li>
         </ul>
       </nav>
 
