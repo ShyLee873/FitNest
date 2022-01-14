@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :catch_not_found
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :authorize_user!
+  after_action :verify_authorized
   
 
   # GET /users or /users.json
@@ -94,6 +96,10 @@ class UsersController < ApplicationController
       Rails.logger.debug("Oops! We had a 'not found exception.' Redirecting to index.")
       flash.alert = error.to_s
       redirect_to users_path
+    end
+
+    def authorize_user!
+      authorize(@user || User)
     end
 
 

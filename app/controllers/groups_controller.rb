@@ -1,6 +1,10 @@
 class GroupsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :catch_not_found
+  
   before_action :set_group, only: %i[ show edit update destroy ]
+  before_action :authorize_group!
+  after_action :verify_authorized
+
 
   # GET /groups or /groups.json
   def index
@@ -84,6 +88,10 @@ class GroupsController < ApplicationController
       Rails.logger.debug("Oops! We had a 'not found exception.' Redirecting to index.")
       flash.alert = error.to_s
       redirect_to groups_path
+    end
+
+    def authorize_group!
+      authorize(@group || Group)
     end
 
 
