@@ -9,13 +9,15 @@ class GroupPolicy < ApplicationPolicy
   end
 
   def create?
-    false
+    true
   end
   
   def update?
+    true
   end
   
   def destroy?
+    true
   end
 
   def home?
