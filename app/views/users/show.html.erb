@@ -1,9 +1,9 @@
 <p class="text-center" id="notice"><%= notice %></p>
 
-
-  <div class="row justify-content-center mx-2 my-5 pl-5 pr-2">
-    <div class="col-4 text-center mb-3">
-      <div class="card text-center mb-3 card-bg">
+<div class="container">
+  <div class="row border justify-content-md-center mx-2 my-5 pl-5 pr-2">
+    <div class="col text-center mb-3 border">
+      <div class="card text-center mb-2 card-bg">
         <div class="card-header border-warning bg-warning">
           <h1 class="display-5 text-center font-weight-bold"><%= @user.full_name %></h1>
         </div>
@@ -68,9 +68,9 @@
 
     <!-- Middle col -->
 
-    <div class="col-md">
+    <div class="col border">
       <div class="row justify-content-center">
-        <div class="card mb-3 mx-1 my-1 card-bg" style="width: 38rem;">
+        <div class="card mb-2 mx-1 card-bg" style="width: 36rem;">
           <h3 class="card-header bg-warning text-center font-weight-bold">About Me</h3>
           <div class="card-body text-center">
 
@@ -80,6 +80,7 @@
               <p class="card-text"><%= simple_format(@user.about_me) %></p>
             <% end %>
 
+            <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-warning btn-sm btn-block" %>  
           </div>
         </div>
       </div>
@@ -87,9 +88,11 @@
       <!-- Post display -->
 
       <div class="row justify-content-center">
-        <div class="card mb-3 mx-1 my-1 card-bg" style="width: 38rem;">
+        <div class="card mb-2 mx-1 my-1 card-bg" style="width: 36rem;">
           <h3 class="card-header bg-warning text-center font-weight-bold">Latest Posts</h3>
           <div class="card-body text-center">
+            <%= link_to "New Post", new_user_post_path(@user.id.to_i), class: "btn btn-warning btn-sm btn-block"  %>
+
             <% if !@user.posts.exists? %>
               <%= link_to "New Post", new_post_path, class: "btn btn-sm btn-warning" %>
             <% elsif @user.posts.exists? %>
@@ -116,31 +119,23 @@
       </div>
      
       <!-- /Post display -->
-      
+
+      <div class="row text-center mt-4">
+        <div class="col-">
+          <%= link_to 'Back', url_for(:back), class:"btn btn-sm btn-warning" %>
+        </div>
+        <div class="col- mt-4 mb-0">
+          <%= link_to 'Delete My Profile', @user, method: :delete, data: { confirm: "Are you sure you're ready to quit this journey?" }, class: "small text-danger text-decoration-none" %>
+        </div>  
+      </div>
     </div>  
 
     <!-- /Middle col -->
 
     <!-- User Nav -->
 
-    <div class="col- pl-5 pr-0">
-      <nav class="nav flex-column text-right">
-        <li class="nav-item mb-2">
-          <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-warning btn-sm btn-block" %>
-        </li>
-        <li class="nav-item mb-2">
-          <%= link_to "Add New Post", new_user_post_path(@user.id.to_i), class: "btn btn-warning btn-sm btn-block"  %>
-        </li>
-        <li class="nav-item mb-2">
-          <%= link_to 'Destroy', @user, method: :delete, data: { confirm: "Are you sure you're ready to quit this journey?" }, class: "btn btn-secondary text-white btn-block" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Back', url_for(:back), class: "btn btn-warning btn-sm btn-block" %>
-        </li>
-      </nav>
-    </div>
     
     <!-- /User Nav -->
   </div>
-
+</div>
 
