@@ -16,6 +16,10 @@ class PostPolicy < ApplicationPolicy
     user.present?
   end
   
+  def edit?
+    update?
+  end
+
   def update?
     user.admin_role? || user.moderator_role? || user.author?(record)
     # user.author?(record)

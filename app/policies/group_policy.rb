@@ -15,13 +15,17 @@ class GroupPolicy < ApplicationPolicy
   def create?
     true
   end
+
+  def edit?
+    update?
+  end
   
   def update?
-    true
+    user.admin_role? || user.moderator_role?
   end
   
   def destroy?
-    true
+    user.admin_role? || user.moderator_role?
   end
 
   def home?
