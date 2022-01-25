@@ -8,8 +8,12 @@ class PostPolicy < ApplicationPolicy
     true
   end
 
+  def new?
+    create?
+  end
+
   def create?
-    true
+    false
   end
   
   def update?

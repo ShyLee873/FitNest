@@ -8,6 +8,10 @@ class UserPolicy < ApplicationPolicy
     true
   end
 
+  def new?
+    create?
+  end
+
   def create?
     false
   end
@@ -16,6 +20,7 @@ class UserPolicy < ApplicationPolicy
   end
   
   def destroy?
+    true
   end
 
   def edit?

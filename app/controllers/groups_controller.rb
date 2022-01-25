@@ -1,6 +1,7 @@
 class GroupsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :catch_not_found
   
+  # before_action :require_authentication
   before_action :set_group, only: %i[ show edit update destroy ]
   before_action :authorize_group!
   after_action :verify_authorized

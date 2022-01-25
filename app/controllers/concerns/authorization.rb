@@ -8,7 +8,7 @@ module Authorization
 
     def user_not_authorized
       flash[:alert] = "You shall not pass!"
-      redirect_to( root_path)
+      redirect_to(request.referer || root_path)
     end
   end
   

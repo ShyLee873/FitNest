@@ -4,6 +4,10 @@ class GroupPolicy < ApplicationPolicy
     true
   end
 
+  def new?
+    create?
+  end
+
   def show?
     true
   end
