@@ -1,11 +1,11 @@
 class UserPolicy < ApplicationPolicy
 
   def index?
-    true
+    user == user.moderator_role? || user.admin_role?
   end
 
   def show?
-    true
+    user == record || user.admin_role?
   end
 
   def new?
@@ -17,7 +17,7 @@ class UserPolicy < ApplicationPolicy
   end
   
   def update?
-    user.admin_role?
+    user == record || user.admin_role?
   end
   
   def destroy?
