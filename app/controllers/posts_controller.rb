@@ -72,6 +72,7 @@ class PostsController < ApplicationController
       @post = Post.find(params[:id])
     end
     def authorize_post!
+      
       authorize(@post || Post)
     end
 

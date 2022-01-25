@@ -34,8 +34,8 @@ class User < ApplicationRecord
         "#{first_name} #{last_name}"
     end
 
-    def author?(post)
-        post.user == self
+    def author?(obj)
+        obj.user == self
     end
     
 end

@@ -13,18 +13,19 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    false
+    user.admin_role?
   end
   
   def update?
+    user.admin_role?
   end
   
   def destroy?
-    true
+    user.admin_role?
   end
 
   def edit?
-    true
+    user == record || user.admin_role?
   end
 
 
