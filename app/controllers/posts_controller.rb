@@ -1,5 +1,10 @@
 class PostsController < ApplicationController
+
+  # before_action :require_authentication
   before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :authorize_post!
+  after_action :verify_authorized
+
 
   # GET /posts or /posts.json
   def index
@@ -23,7 +28,7 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @user_id = params[:user_id]
+    @user_id = params[:post][:user_id]
     @post = Post.new(post_params)
     respond_to do |format|
       if @post.save
@@ -65,6 +70,10 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
+    end
+    def authorize_post!
+      
+      authorize(@post || Post)
     end
 
     # Only allow a list of trusted parameters through.
