@@ -14,9 +14,10 @@
 class Group < ApplicationRecord
     has_many :memberships
     has_many :users, through: :memberships, dependent: :destroy 
+    has_many :events
     validates :name, presence: true
     validates :activity_type, presence: true
     validates_inclusion_of :senior, in: [true, false] 
     validates_inclusion_of :gym_required, in: [true, false] 
-    has_one_attached :avatar 
+    has_one_attached :avatar
 end
