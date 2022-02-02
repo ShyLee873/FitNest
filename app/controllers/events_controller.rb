@@ -1,13 +1,14 @@
 class EventsController < ApplicationController
-  # before_action :require_authentication
+  #  before_action :require_authentication
   before_action :set_event, only: %i[ show edit update destroy ]
-  before_action :authorize_event!
-  after_action :verify_authorized
+  # before_action :authorize_event!
+  # after_action :verify_authorized
 
 
   # GET /events or /events.json
   def index
-    @events = Event.all
+    @group = Group.find(params[:group_id])
+    @events = @group.events
   end
 
   # GET /events/1 or /events/1.json
@@ -67,7 +68,6 @@ class EventsController < ApplicationController
       @event = event.find(params[:id])
     end
     def authorize_event!
-      
       authorize(@event || event)
     end
 

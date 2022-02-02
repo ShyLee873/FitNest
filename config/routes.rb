@@ -4,8 +4,11 @@ Rails.application.routes.draw do
     get '/signout', to: 'devise/sessions#destroy', as: :signout
   end
   resources :posts
-  resources :groups
+  resources :groups do
+    resources :events
+  end
   resources :users
+  
   get '/posts/new/:user_id', to: 'posts#new', as: 'new_user_post'
 
   delete '/users/:id/memberships/:group_id', to: 'users#delete_membership', as: 'delete_membership'
