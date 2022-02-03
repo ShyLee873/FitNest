@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   #  before_action :require_authentication
   before_action :set_event, only: %i[ show edit update destroy ]
+  before_action :set_group, only: %i[ index show edit]
   # before_action :authorize_event!
   # after_action :verify_authorized
 
@@ -17,7 +18,6 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @group = Group.find(params[:group_id])
     @event = @group.events.new
   end
 
@@ -65,8 +65,13 @@ class EventsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
-      @event = event.find(params[:id])
+      @event = Event.find(params[:id])
+    end 
+
+    def set_group
+      @group = Group.find(params[:group_id])
     end
+
     def authorize_event!
       authorize(@event || event)
     end
