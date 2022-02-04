@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   #  before_action :require_authentication
   before_action :set_event, only: %i[ show edit update destroy ]
-  before_action :set_group, only: %i[ index show edit]
+  before_action :set_group, only: %i[ create index new show edit update]
   # before_action :authorize_event!
   # after_action :verify_authorized
 
@@ -28,11 +28,10 @@ class EventsController < ApplicationController
 
   # event /events or /events.json
   def create
-    @group_id = params[:event][:group_id]
-    @event = Event.new(event_params)
+    @event = @group.events.new(event_params)
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: "Event was successfully created." }
+        format.html { redirect_to group_event_path(@group, @event), notice: "Event was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -43,8 +42,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        @group_id = params[:group_id]
-        format.html { redirect_to @event, notice: "Event was successfully updated." }
+        format.html { redirect_to group_event_path(@group), notice: "Event was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -78,7 +76,7 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:title, :content, :group_id)
+      params.require(:event).permit(:title, :body, :date, :latitude, :longitude)
     end
 
 end

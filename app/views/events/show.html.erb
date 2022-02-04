@@ -12,6 +12,12 @@
       <div class="card-body card-bg">
         <%= @event.body %>
       </div>
+      <div class="card-body card-bg">
+        <%= @event.longitude %>
+      </div>
+      <div class="card-body card-bg">
+        <%= @event.latitude %>
+      </div>
       <div class="card-footer border-warning bg-warning text-center">
         <h6 class="font-weight-bold">
         </h6>
@@ -19,7 +25,7 @@
     </div>
 
     <div class="card-body text-center">
-       <%= link_to "Edit Profile", group_events_path(@group), class: "btn btn-warning btn-sm btn-block" %>  
+       <%= link_to "Edit Profile", edit_group_event_path(@group, @event), class: "btn btn-warning btn-sm btn-block" %>  
     </div>
   </div>
 </div>

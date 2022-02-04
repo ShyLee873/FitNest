@@ -3,17 +3,19 @@
   <h1 class="text-center font-weight-bold my-4">Events</h1>
   <% @events.each do |event| %>
 
-  <div class="d-flex flex-row">
-    <div class="col-4"><%= event.date %></div>
-    <div class="col-8">
-      <div class="row">
-      <%= event.title %>
-      </div>
-      <div class="row">
-      <%= event.longitude %>
-      <%= event.latitude  %>
+  <%=link_to  group_event_path(@group, event), class:"event-link"  do %>
+    <div class="d-flex flex-row">
+      <div class="col-4"><%= event.date %></div>
+      <div class="col-8">
+        <div class="row">
+        <%= event.title %>
+        </div>
+        <div class="row">
+        <%= event.longitude %>
+        <%= event.latitude  %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
   <% end %>
 </div>  
