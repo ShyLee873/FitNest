@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   #  before_action :require_authentication
   before_action :set_event, only: %i[ show edit update destroy ]
-  before_action :set_group, only: %i[ create index new show edit update]
+  before_action :set_group, only: %i[ destroy create index new show edit update]
   # before_action :authorize_event!
   # after_action :verify_authorized
 
@@ -23,7 +23,6 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
-    
   end
 
   # event /events or /events.json
