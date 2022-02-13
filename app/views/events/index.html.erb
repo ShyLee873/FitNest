@@ -1,0 +1,25 @@
+
+<div class="container">
+  <h1 class="text-center font-weight-bold my-4">Events</h1>
+  <% @events.each do |event| %>
+
+  <%=link_to  group_event_path(@group, event), class:"event-link"  do %>
+    <div class="d-flex flex-row">
+      <div class="col-4"><%= event.date %></div>
+      <div class="col-8">
+        <div class="row">
+        <%= event.title %>
+        </div>
+        <div class="row">
+        <%= event.longitude %>
+        <%= event.latitude  %>
+        </div>
+        <div class="card-body text-center">
+        <%= button_to "Destroy", group_event_path(group_id: @group.id, id: event.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm btn-block" %>  
+        </div>
+      </div>
+
+    </div>
+  <% end %>
+  <% end %>
+</div>  
