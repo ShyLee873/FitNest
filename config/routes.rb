@@ -3,11 +3,14 @@ Rails.application.routes.draw do
   devise_scope :user do
     get '/signout', to: 'devise/sessions#destroy', as: :signout
   end
+  resources :groups do
+    resources :events
+  end
   resources :posts do
     resources :likes
   end
-  resources :groups
   resources :users
+  
   get '/posts/new/:user_id', to: 'posts#new', as: 'new_user_post'
 
   delete '/users/:id/memberships/:group_id', to: 'users#delete_membership', as: 'delete_membership'

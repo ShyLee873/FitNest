@@ -1,0 +1,31 @@
+<p class="text-center" id="notice"><%= notice %></p>
+
+<div class="container">
+  <div class="row justify-content-md-center mx-2 my-5 pl-5 pr-2">
+    <div class="col text-center mb-3">
+      <div class="card text-center mb-2 card-bg "> 
+        <div class="card-header border-warning bg-warning justify-content-around d-flex">
+          <h3 class="text-center font-weight-bold"><%= @event.date.strftime("%m/%d/%Y")  %></h3>
+          <h3 class="text-center font-weight-bold"><%= @event.title %></h3>
+        </div>
+      </div>
+      <div class="card-body card-bg">
+        <%= @event.body %>
+      </div>
+      <div class="card-body card-bg">
+        <%= @event.longitude %>
+      </div>
+      <div class="card-body card-bg">
+        <%= @event.latitude %>
+      </div>
+      <div class="card-footer border-warning bg-warning text-center">
+        <h6 class="font-weight-bold">
+        </h6>
+      </div>
+    </div>
+
+    <div class="card-body text-center">
+       <%= link_to "Edit Event", edit_group_event_path(@group, @event), class: "btn btn-warning btn-sm btn-block" %>  
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+
+<%= form_for([group, event], method: method) do |form| %>
+  <% if event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+        <% event.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="mb-2">
+        <%= form.label "Title *", {class: "form-label font-weight-bold"} %>
+        <%= form.text_field :title, {class: "form-control", placeholder: "Enter title of event"} %>
+      </div>
+
+      <div class="mb-2">
+        <%= form.label "Description *", {class: "form-label font-weight-bold"} %>
+        <%= form.text_field :body, {class: "form-control", placeholder: "Enter description of event"} %>
+      </div>
+
+      <div class="mb-2">
+        <%= form.label "Date *", {class: "form-label font-weight-bold"} %>
+        <%= form.text_field :date, {class: "form-control"} %>
+      </div>
+
+      <div class="mb-2">
+        <%= form.label "Longitude", {class: "form-label font-weight-bold"} %>
+        <%= form.text_field :longitude, {class: "form-control", placeholder: "Enter longitude"} %>
+      </div>
+
+      <div class="mb-2">
+        <%= form.label "Latitude", {class: "form-label font-weight-bold"} %>
+        <%= form.text_field :latitude, {class: "form-control", placeholder: "Enter latitude"} %>
+      </div>
+      <br>
+      <div class="actions">
+        <%= form.submit class:"btn btn-block btn-warning" %>
+      </div>
+      <br>
+      <small>Fields marked with * are required</small>
+    </div>  
+  </div>  
+<% end %>
