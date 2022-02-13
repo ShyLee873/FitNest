@@ -30,6 +30,7 @@ class User < ApplicationRecord
     has_one_attached :avatar 
     has_many :posts
     belongs_to :events
+    has_many :likes, dependent: :destroy
 
     def full_name
         "#{first_name} #{last_name}"

@@ -50,6 +50,15 @@ ActiveRecord::Schema.define(version: 2022_02_01_025014) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "group_id", null: false
     t.index ["group_id"], name: "index_events_on_group_id"
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -62,13 +71,21 @@ ActiveRecord::Schema.define(version: 2022_02_01_025014) do
     t.boolean "gym_required"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_likes_on_post_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "memberships", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "group_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["group_id"], name: "index_memberships_on_group_id"
-    t.index ["user_id", "group_id"], name: "index_memberships_on_user_id_and_group_id", unique: true
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 

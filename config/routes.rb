@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   devise_scope :user do
     get '/signout', to: 'devise/sessions#destroy', as: :signout
   end
-  resources :posts
   resources :groups do
     resources :events
+  end
+  resources :posts do
+    resources :likes
   end
   resources :users
   
