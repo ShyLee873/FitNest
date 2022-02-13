@@ -28,7 +28,7 @@
           <td class="btn-group" role="group" aria-label="Basic example">
             <%= link_to 'Show', user, class: "btn btn-outline-warning btn-sm" %>
             <%= link_to 'Edit', edit_user_path(user), class: "btn btn-outline-warning btn-sm" %>
-            <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-warning btn-sm" %>
+            <%= button_to "Destroy", user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm btn-block" %>  
           </td>
         </tr>
       <% end %>
