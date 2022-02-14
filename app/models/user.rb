@@ -29,6 +29,7 @@ class User < ApplicationRecord
     has_many :groups, through: :memberships, dependent: :destroy
     has_one_attached :avatar 
     has_many :posts
+    belongs_to :events
     has_many :likes, dependent: :destroy
 
     def full_name

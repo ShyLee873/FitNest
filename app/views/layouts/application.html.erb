@@ -39,7 +39,7 @@
           <ul class="navbar-nav mr-auto mt-2 pt-2 mt-lg-0">
             <h6 class="navbar-text barcad mx-2 text-light">(FITNEST)</h6>
             <li class="nav-item">
-              <a class="nav-link text-light" href="http://localhost:3000">Home</a>
+              <%= link_to 'Home', root_path, class: "nav-link text-light" %>
             </li>
             <li class="nav-item dropdown dmenu">
               <a class="nav-link dropdown-toggle text-white" href="#" id="navbardrop" data-toggle="dropdown">
@@ -58,6 +58,11 @@
                 <%= link_to 'Groups', groups_path, class: "dropdown-item" %>
                 <%= link_to 'New Group', new_group_path, class: "dropdown-item" %>
               </div>
+            </li>
+            <li class="nav-item">
+              <%if user_signed_in?%>
+                <%= link_to 'Log Out', signout_path, class: "nav-link text-light" %>
+              <%end%>
             </li>
           </ul>
         <div>  
