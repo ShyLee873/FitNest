@@ -13,11 +13,6 @@
         <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-sm btn-warning" %>
         <%= link_to 'Back' , user_path(user), class: "btn btn-sm btn-warning" %>
       </div>
-      <div id="comments">
-        <% if @post.comments.present? %>
-          <h1>Comments</h1>
-          <%= render @post.comments %>
-        <% end %>
       </div>
     </div>
   </div>  
