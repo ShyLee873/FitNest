@@ -12,6 +12,9 @@
       <div class="card-body card-bg">
         <%= @event.body %>
       </div>
+      <p>
+<%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&center=#{@event.latitude},#{@event.longitude}&key=#{Rails.application.credentials.google_maps_api_key}", alt: "Map" %>
+</p>
       <div class="card-body card-bg">
         <%= @event.longitude %>
       </div>
