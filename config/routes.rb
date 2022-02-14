@@ -4,8 +4,12 @@ Rails.application.routes.draw do
     get '/signout', to: 'devise/sessions#destroy', as: :signout
   end
   resources :posts do
+<<<<<<< HEAD
     resources :likes
     resources :comments, module: :posts
+=======
+    resources :comments
+>>>>>>> b6b95a9b72d61c5f3b9b416492108caf268c8706
   end
   resources :groups
   resources :users

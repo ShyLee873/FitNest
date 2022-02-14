@@ -1,6 +1,19 @@
+<<<<<<< HEAD
 <%= form_for [commentable, Comment.new] do |f| %>
     <div class="form-group">
         <%= f.text_area :body, class: "form-control", placeholder: "Add a comment" %>
     </div>
     <%= f.submit 'Add Comment', class: "btn btn-sm btn-outline-warning mb-1" %>
 <% end %>
+=======
+<%= form_for [posts, comment] do |f| %>
+    <div class="field">
+      <%= f.label :content, "Comment" %>
+      <%= f.text_area :content %>
+    </div>
+  
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+>>>>>>> b6b95a9b72d61c5f3b9b416492108caf268c8706

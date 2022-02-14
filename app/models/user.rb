@@ -29,7 +29,11 @@ class User < ApplicationRecord
     has_many :groups, through: :memberships, dependent: :destroy
     has_one_attached :avatar 
     has_many :posts
+<<<<<<< HEAD
     has_many :likes, dependent: :destroy
+=======
+    has_many :comments
+>>>>>>> b6b95a9b72d61c5f3b9b416492108caf268c8706
 
     def full_name
         "#{first_name} #{last_name}"
