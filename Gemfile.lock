@@ -106,7 +106,6 @@ GEM
     ffi (1.15.4-x64-mingw32)
     globalid (0.5.2)
       activesupport (>= 5.0)
-    gmaps4rails (2.1.2)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.3)
@@ -272,7 +271,6 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
-  gmaps4rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
   puma (~> 5.0)
