@@ -118,6 +118,15 @@
                       <%= button_to 'Like', post_likes_path(post), method: :post %>
                     <% end %>
                   </div>
+                  
+                  <%= render partial: "comments/form", locals: { commentable: post } %>
+                  <% if !post.comments.exists? %>
+                    <small class="my-2">Be the first to comment!</small>
+                  <% elsif post.comments.exists? %>  
+                    <small><%= "#{post.comments.count} comments" %></small>
+                    <%= render partial: "comments/comments", locals: { commentable: post } %>
+                  <% end %>
+
                 </div>      
               <% end %>  
             <% end %>
