@@ -279,7 +279,7 @@ DEPENDENCIES
   rails (~> 6.1.4, >= 6.1.4.1)
   rails-controller-testing
   rexml
-  rspec-rails
+  rspec-rails (>= 3.9.0)
   sass-rails (>= 6)
   selenium-webdriver
   spring
