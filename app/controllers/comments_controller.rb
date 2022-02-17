@@ -6,7 +6,8 @@ class CommentsController < ApplicationController
         @comment = @commentable.comments.new(comment_params)
         @comment.user_id = current_user.id
         @comment.save
-        redirect_to user_url(id: @commentable.user_id), notice: "Comment posted!"
+        flash[:success] = "Comment posted!"
+        redirect_back(fallback_location: root_path)
     end
 
     def destroy
