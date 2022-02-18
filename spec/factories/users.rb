@@ -5,5 +5,7 @@ FactoryBot.define do
     f.last_name { Faker::Name.last_name }
     f.phone { Faker::Number.number(digits: 10) }
     f.email { Faker::Internet.email }
+    f.password {"password"}
+    # f.group {Group.first}
   end
 end
