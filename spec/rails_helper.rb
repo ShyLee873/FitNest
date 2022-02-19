@@ -5,6 +5,7 @@ require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+require 'support/pundit_spec_helper'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -61,4 +62,25 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.include PunditSpecHelper, type: :view
+
+end
+
+
+require 'pundit/rspec'
+# require "pundit/matchers"
+# below is for #pundit/matchers rspec tests:
+RSpec::Matchers.define :authorize do |action|
+  match do |policy|
+    policy.public_send("#{action}?")
+  end
+
+  failure_message do |policy|
+    "#{policy.class} does not authorize #{action} on #{policy.record} for #{policy.user.inspect}."
+  end
+
+  failure_message_when_negated do |policy|
+    "#{policy.class} does not forbid #{action} on #{policy.record} for #{policy.user.inspect}."
+  end
 end

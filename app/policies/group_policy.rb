@@ -27,7 +27,7 @@ class GroupPolicy < ApplicationPolicy
   def destroy?
     user.admin_role? || user.moderator_role?
   end
-
+ 
   def home?
   end
 
