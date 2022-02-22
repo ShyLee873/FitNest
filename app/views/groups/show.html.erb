@@ -1,11 +1,13 @@
 <p class="text-center" id="notice"><%= notice %></p>
 
 <div class="container-fluid">
+<div class="">
+  <%= link_to 'Back to Groups', url_for(:back), class: "btn btn-warning btn-sm btn-block" %>
+</div>
   <div class="row justify-content-center my-4 pl-5 pr-2">
-
     <!-- Profile photo -->
 
-    <div class="col-md-6 px-5 mb-5 mx-auto">
+    <div class="col-md-7 px-5 mb-5 mx-auto">
       <div class="card text-center">
         <h1 class="card-header bg-warning text-center font-weight-bold"><%= @group.name %></h1>
         <h3 class="card-title text-muted text-center perm pt-2"><%= @group.activity_type %></h3> 
@@ -38,68 +40,61 @@
             <h6>No gym membership required</h6>
           <% end %>
         </div>
+        
+        <div class="d-flex mt-1">
+          <div class="col px-0 mr-1">
+            <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-sm btn-block", style:"background: rgb(214, 182, 77); color: #000"%>
+          </div>
+          <div class="col px-0">
+          <%= link_to "Destroy", group_path(@group), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-block", style:"background: rgb(221, 95, 36); color: #000"%>  
+          </div>
+        </div>
       </div>
     </div>
-
     <!-- /Profile photo -->
     
-    <!-- Members display -->
-
+    <!-- Events display -->
     <div class="col-md mr-4">
       <div class="card">
         <div class="card-header text-center bg-warning">
-          <h3 class="font-weight-bold">Members(<%= @group.memberships.count %>)</h3>
+          <h3 class="font-weight-bold">Today events</h3>
         </div>
         <div class="card-body card-bg">
           <div class="row justify-content-center">
-            <% if !@group.users.exists? %>
-              <p>This group has no current members</p>
+            <% if !@group.events.exists? %>
+              <p>There are no events yet.</p>
             <% else %>
-              <% @group.users.each do |users| %>
-                <div class="card mx-1" style="width: 9rem;">
-                  <h5 class="card-header text-center"><%= users.first_name%></h5>
-                  <div class="card-body text-center">
-                    <% if users.avatar.present? %>
-                      <%= image_tag users.avatar, class: "thumbnail" %>
-                    <% else %>
-                      <%= image_tag "user_ph.jpg", class: "thumbnail"%>
-                    <% end %>                   
-                    <p> Joined <br><%= @group.name %><br> on <br><%= users.memberships.find_by(user_id: users.id, group_id: @group.id).created_at.to_date %></p>
-
+              <div id="accordion">
+                <% @group.events.each do |event| %>
+                  <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between py-1" id="headingOne">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target=<%="#collapse#{event.id}"%> aria-expanded="false" aria-controls=<%="collapse#{event.id}"%> >
+                          <%= event.title %>
+                        </button>
+                      </h5>
+                      <p class="mb-0"><%= event.date.strftime("%m/%d/%Y") %></p>
+                    </div>
+                    <div id=<%="collapse#{event.id}"%> class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                      <div class="card-body">
+                        <%= event.body %>
+                      </div>
+                    </div>
                   </div>
-                  <div class="card-footer text-center">
-                    <%= link_to "Visit", user_path(users), class: "btn btn-sm btn-warning" %><br>
-                    <small><%= link_to "remove", delete_user_membership_path(user_id: users.id, group_id: @group.id), method: :delete %></small>
-                  </div>
-                  
-                </div>
-              <% end %>
+                <% end %>
+              </div>
             <% end %>
-          </div>  
+          </div> 
         </div>
+        <%= link_to 'Past events', group_events_path(@group), class: "btn btn-warning btn-sm btn-block" %>
+        <%= link_to 'Upcoming events', group_events_path(@group), class: "btn btn-warning btn-sm btn-block" %>
+        <%= link_to 'Create event', new_group_event_path(@group), class: "btn btn-warning btn-sm btn-block" %>
       </div>
-    </div>
+    <div>
+  </div>
+
 
     <!-- /Members display -->
-
-
-    <!-- Group Nav -->
-    
-    <div class="col-1 px-0">
-      <nav class="nav flex-column text-right">
-        <li class="nav-item mb-2">
-          <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-warning btn-sm btn-block" %>
-        </li>
-        <li class="nav-item mb-2">
-        <%= link_to "Destroy", group_path(@group), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm btn-block" %>  
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Back', url_for(:back), class: "btn btn-warning btn-sm btn-block" %>
-        </li>
-      </nav>
-    </div>
   </div>  
-  <%= link_to 'Past events', group_events_path(@group), class: "btn btn-warning btn-sm btn-block" %>
-  <%= link_to 'Upcoming events', group_events_path(@group), class: "btn btn-warning btn-sm btn-block" %>
-  <%= link_to 'Create event', new_group_event_path(@group), class: "btn btn-warning btn-sm btn-block" %>
+  <%= link_to "Members (#{@group.memberships.count})", group_members_path(@group), class: "btn btn-warning btn-sm btn-block" %>
 </div>

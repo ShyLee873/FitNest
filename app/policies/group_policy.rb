@@ -31,5 +31,8 @@ class GroupPolicy < ApplicationPolicy
   def home?
   end
 
+  def members?
+    true
+  end
 
 end
