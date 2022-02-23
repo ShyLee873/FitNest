@@ -5,7 +5,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    user.admin_role? || user.author?(record)
   end
 
   def new?
@@ -13,7 +13,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def create?
-    user.present?
+    user.author?(record)
   end
   
   def edit?
