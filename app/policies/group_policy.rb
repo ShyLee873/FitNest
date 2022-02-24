@@ -28,11 +28,4 @@ class GroupPolicy < ApplicationPolicy
     user.admin_role? || user.moderator_role?
   end
  
-  def home?
-  end
-
-  def members?
-    true
-  end
-
 end
