@@ -28,5 +28,4 @@ class GroupPolicy < ApplicationPolicy
     user.admin_role? || user.moderator_role?
   end
  
-
 end
