@@ -9,7 +9,13 @@ class EventsController < ApplicationController
   # GET /events or /events.json
   def index
     @group = Group.find(params[:group_id])
-    @events = @group.events
+    if params[:upcoming]
+    @events = @group.events.upcoming_events
+    elsif params[:past]
+      @events = @group.events.past_events 
+    else
+      @events = @group.events
+    end
   end
 
   # GET /events/1 or /events/1.json

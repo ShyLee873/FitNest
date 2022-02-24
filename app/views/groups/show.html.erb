@@ -62,11 +62,11 @@
         </div>
         <div class="card-body card-bg p-0">
           <div class="row justify-content-center">
-            <% if !@group.events.exists? %>
+            <% if !@group.events.today_events.exists? %>
               <p>There are no events yet.</p>
             <% else %>
               <div id="accordion">
-                <% @group.events.each do |event| %>
+                <% @group.events.today_events.each do |event| %>
                   <div class="">
                     <div class="d-flex align-items-center justify-content-between" id="headingOne">
                       <h5 class="mb-0">
@@ -87,8 +87,9 @@
             <% end %>
           </div> 
         </div>
-        <%= link_to 'Past events', group_events_path(@group), class: "btn btn-warning btn-sm btn-block" %>
-        <%= link_to 'Upcoming events', group_events_path(@group), class: "btn btn-warning btn-sm btn-block" %>
+        <%= link_to 'Past events', group_events_path(@group, past: true), class: "btn btn-warning btn-sm btn-block" %>
+        <%= link_to 'Upcoming events', group_events_path(@group, upcoming: true), class: "btn btn-warning btn-sm btn-block" %>
+        <%= link_to 'All events', group_events_path(@group), class: "btn btn-warning btn-sm btn-block" %>
         <%= link_to 'Create event', new_group_event_path(@group), class: "btn btn-warning btn-sm btn-block" %>
       </div>
     <div>
