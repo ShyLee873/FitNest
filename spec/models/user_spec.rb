@@ -1,9 +1,7 @@
 require 'rails_helper'
 RSpec.describe User, type: :model do
-    subject { User.new(first_name: "Nick", last_name: "Miller", phone: "8887774561", email: "nickmiller@sample.com")}
-    it "is valid with valid attributes" do
-        expect(subject).to be_valid
-    end
+    subject { User.new(first_name: "Nick", last_name: "Miller", phone: 8887774561, email: "nickmiller@sample.com")}
+  
     it "is not valid without a first name" do
         subject.first_name=nil
         expect(subject).to_not be_valid

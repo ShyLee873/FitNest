@@ -1,24 +1,35 @@
 require 'rails_helper'
 
 RSpec.describe "posts/edit", type: :view do
+
   before(:each) do
-    @post = assign(:post, Post.create!(
-      title: "MyString",
-      content: "MyText",
-      user: nil
-    ))
+    @user = create :user
+    @post = create :post, user_id: @user.id
+    render
+  end
+
+  it "renders without error" do
+    expect { render }.to_not raise_error
   end
 
   it "renders the edit post form" do
-    render
-
-    assert_select "form[action=?][method=?]", post_path(@post), "post" do
-
+      assert_select "form[action=?][method=?]", post_path(@post), "post" do
       assert_select "input[name=?]", "post[title]"
-
       assert_select "textarea[name=?]", "post[content]"
-
-      assert_select "input[name=?]", "post[user_id]"
     end
   end
+
+  it 'has input with placeholder' do
+    assert_select "input[placeholder=?]", "Enter title"
+  end
+
+  it 'has div tag' do
+    expect(rendered).to have_css 'div', count: 11
+  end
+
+  it "has titles 'Title' and 'Content'" do
+    expect(rendered).to have_text "Title"
+    expect(rendered).to have_text "Content"
+  end
+
 end

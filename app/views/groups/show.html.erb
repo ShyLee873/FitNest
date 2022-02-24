@@ -31,7 +31,7 @@
           <% else %>
             <h6 class="font-weight-bold">We welcome all swolemates of all ages!</h6>
           <% end %>
-
+ 
           <% if @group.gym_required === true %>
             <h6>**This group requires a gym membership**<br>see group description for more details</h6>
           <% else %>
@@ -91,7 +91,7 @@
           <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-warning btn-sm btn-block" %>
         </li>
         <li class="nav-item mb-2">
-        <%= button_to "Destroy", group_path(@group), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm btn-block" %>  
+        <%= link_to "Destroy", group_path(@group), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm btn-block" %>  
         </li>
         <li class="nav-item">
           <%= link_to 'Back', url_for(:back), class: "btn btn-warning btn-sm btn-block" %>
