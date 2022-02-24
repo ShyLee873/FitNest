@@ -1,21 +1,21 @@
 <p class="text-center" id="notice"><%= notice %></p>
 
 <div class="container-fluid">
-<div class="">
-  <%= link_to 'Back to Groups', url_for(:back), class: "btn btn-warning btn-sm btn-block" %>
-</div>
-  <div class="row justify-content-center my-4 pl-5 pr-2">
+  <div class="">
+    <%= link_to 'Back to Groups', url_for(:back), class: "btn btn-warning btn-sm btn-block" %>
+  </div>
+  <div class="row justify-content-center my-4 pl-2 pr-2">
     <!-- Profile photo -->
 
-    <div class="col-md-7 px-5 mb-5 mx-auto">
+    <div class="col-md-7 px-2 mb-5 mx-auto">
       <div class="card text-center">
         <h1 class="card-header bg-warning text-center font-weight-bold"><%= @group.name %></h1>
         <h3 class="card-title text-muted text-center perm pt-2"><%= @group.activity_type %></h3> 
         <div class="card-body card-bg">
           <% if @group.avatar.attached? %>
-            <img src="<%=(url_for(@group.avatar))%>" class="avatar" alt="<%= @group.name%>">
+            <img src="<%=(url_for(@group.avatar))%>" class="avatar img-fluid" alt="<%= @group.name%>">
           <% else %>
-            <%= image_tag "group_ph.jpg", class:"avatar" %>
+            <%= image_tag "group_ph.jpg", class:"avatar img-fluid" %>
           <%end%>
         </div>
 
@@ -49,25 +49,26 @@
           <%= link_to "Destroy", group_path(@group), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-block", style:"background: rgb(221, 95, 36); color: #000"%>  
           </div>
         </div>
+
       </div>
     </div>
     <!-- /Profile photo -->
     
     <!-- Events display -->
-    <div class="col-md mr-4">
+    <div class="col-md pr-2">
       <div class="card">
         <div class="card-header text-center bg-warning">
           <h3 class="font-weight-bold">Today events</h3>
         </div>
-        <div class="card-body card-bg">
+        <div class="card-body card-bg p-0">
           <div class="row justify-content-center">
             <% if !@group.events.exists? %>
               <p>There are no events yet.</p>
             <% else %>
               <div id="accordion">
                 <% @group.events.each do |event| %>
-                  <div class="card">
-                    <div class="card-header d-flex align-items-center justify-content-between py-1" id="headingOne">
+                  <div class="">
+                    <div class="d-flex align-items-center justify-content-between" id="headingOne">
                       <h5 class="mb-0">
                         <button class="btn btn-link collapsed" data-toggle="collapse" data-target=<%="#collapse#{event.id}"%> aria-expanded="false" aria-controls=<%="collapse#{event.id}"%> >
                           <%= event.title %>

@@ -26,10 +26,8 @@ body {
 }
 
 .avatar {
-    height: 300px; 
-    width: 300px; 
-    max-width: 300px; 
-    max-height: 300px;
+    height: auto; 
+    max-width: 300px;
 }
 
 .thumbnail {
