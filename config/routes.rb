@@ -8,12 +8,14 @@ Rails.application.routes.draw do
   end
   resources :posts do
     resources :likes
+    resources :comments, module: :posts
   end
   resources :users
   
   get '/posts/new/:user_id', to: 'posts#new', as: 'new_user_post'
   get '/groups/:id/members', to: 'groups#members', as: 'group_members'
 
+  
   delete '/users/:id/memberships/:group_id', to: 'users#delete_membership', as: 'delete_membership'
   delete '/groups/:id/memberships/:user_id', to: 'groups#delete_user_membership', as: 'delete_user_membership'
   root to: 'pages#home'

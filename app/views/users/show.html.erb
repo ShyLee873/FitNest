@@ -110,8 +110,6 @@
                   </div>
 
                   <div class="card-footer text-center text-muted">
-                    <%= link_to "Edit Post", edit_post_path(post) %> |
-                    <%= button_to "Destroy", post_path(post), method: :delete, class: "btn btn-danger btn-sm btn-block" %> 
                     <p><%= post.likes.count %> <%= (post.likes.count) == 1 ? "Like" : "Likes" %></p>
                     <% pre_like = post.likes.find { |like| like.user_id == current_user.id} %>
                     <% if pre_like %>
@@ -120,6 +118,14 @@
                       <%= button_to 'Like', post_likes_path(post), method: :post %>
                     <% end %>
                   </div>
+                  
+                  <%= render partial: "comments/form", locals: { commentable: post } %>
+                  <% if !post.comments.exists? %>
+                    <small class="my-2">Be the first to comment!</small>
+                  <% elsif post.comments.exists? %>  
+                    <small><%= "#{post.comments.count} comments" %></small>
+                    <%= render partial: "comments/comments", locals: { commentable: post } %>
+                  <% end %>
                 </div>      
               <% end %>  
             <% end %>
@@ -133,7 +139,7 @@
           <%= link_to 'Back', url_for(:back), class:"btn btn-sm btn-warning" %>
       </div>
       <div class="row justify-content-center mt-4">
-          <%= button_to "delete my profile", user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm btn-block" %>  
+          <%= button_to "delete my profile", user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
       </div>  
       
     </div>  
