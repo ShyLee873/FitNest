@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :catch_not_found
   before_action :set_user, only: %i[ show edit update destroy ]
   before_action :authorize_user!
-   after_action :verify_authorized
+  after_action :verify_authorized
   
 
   # GET /users or /users.json
@@ -41,9 +41,9 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    membership
     respond_to do |format|
       if @user.update(user_params)
+        membership
         format.html { redirect_to @user, notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else

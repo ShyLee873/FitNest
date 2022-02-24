@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :catch_not_found
   
   # before_action :require_authentication
-  before_action :set_group, only: %i[ show edit update destroy ]
+  before_action :set_group, only: %i[ show edit update destroy members]
   before_action :authorize_group!
   after_action :verify_authorized
 
@@ -68,6 +68,9 @@ class GroupsController < ApplicationController
       format.html { redirect_to group_path(params[:id]), notice: "Member deleted" }
       format.json { head :no_content }
     end  
+  end
+
+  def members
   end
 
   private

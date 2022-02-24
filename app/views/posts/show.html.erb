@@ -1,10 +1,14 @@
 <p class="text-center" id="notice"><%= notice %></p>
 <% user = User.find_by(id: @post.user_id) %>
-
 <div class="container-fluid my-5">
   <div class="row justify-content-center">
     <div class="card" style="width: 40rem;">
-      <h3 class="card-header bg-warning text-center font-weight-bold"> 
+      <h3 class="card-header bg-warning text-center font-weight-bold">
+      <% if user.avatar.persisted? %> 
+        <img src="<%=(url_for(user.avatar))%>" class="thumbnail" alt="<%= user.full_name%>">
+      <% else %>
+        <img src="" class="thumbnail" alt="<%= user.full_name%>">
+      <% end %>
         <%= user.first_name %>
       </h3>
       <div class="card-body text-center mb-3">
