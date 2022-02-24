@@ -1,0 +1,22 @@
+<button class="btn btn-light btn-sm mt-2" type="button" data-toggle="collapse" data-target="#comments" aria-expanded="false" aria-controls="comments">View All Comments</button>
+
+<div class="card-colums">
+  <div class="collapse multi-collapse" id="comments">
+    
+    <% commentable.comments.each do |comment| %>
+      <div class="card my-2">
+        <div class="row justify-content-center">
+          <div class="col-sm-2 py-1">
+            <h6 class="font-weight-bold"><%= current_user.first_name %></h6>
+            <%= image_tag current_user.avatar, class: "thumbnail" %>
+            <small><%= link_to "delete", [commentable, comment], method: :delete, class:"text-muted" %></small> 
+          </div>
+          <div class="col-md my-auto text-left">     
+            <%= comment.body %>
+          </div>  
+        </div> 
+        <small class="font-italic font-weight-light pb-1"><%= "#{time_ago_in_words(comment.created_at)} ago" %></small>
+      </div>  
+    <% end %>
+  </div>
+</div>  
