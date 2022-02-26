@@ -12,6 +12,10 @@ class GroupsController < ApplicationController
     @groups = Group.all
   end
 
+  def search
+    @groups = Group.where('activity_type LIKE ?', '%' + params[:q] + '%')
+  end
+
   # GET /groups/1 or /groups/1.json
   def show
   end

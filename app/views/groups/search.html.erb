@@ -1,0 +1,8 @@
+<h1>Search Results for: <%= "#{params[:q]}" %></h1>
+
+<% @groups.each do |group| %>
+    <p>
+        <%= group.name %>
+        <%= group.activity_type %>
+    </p>
+<% end %>    
