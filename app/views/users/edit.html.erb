@@ -1,6 +1,6 @@
 <div class="container mt-3 mx-auto">
   <div class="row justify-content-around">
-    <div class="col-4 text-center">
+    <div class="col-sm text-center">
       <h3 class="font-weight-bold text-center">Edit My Details</h3>
       <br>
       <p><em>“Setting goals is the first step in turning the invisible into the visible.”<br>-Tony Robbins</em></p>
@@ -19,11 +19,11 @@
       </div>
 
 
-      <br><br><%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-warning" %>
+      <br><br><%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-warning mb-2" %>
     </div>
 
 
-    <div class="col-5 mx-5">
+    <div class="col-sm mx-5 mb-5">
       <%= render 'form', user: @user %>
     </div>
   </div>
