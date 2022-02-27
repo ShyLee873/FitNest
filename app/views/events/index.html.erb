@@ -1,25 +1,42 @@
-
-<div class="container">
-  <h1 class="text-center font-weight-bold my-4">Events</h1>
-  <% @events.each do |event| %>
-
-  <%=link_to  group_event_path(@group, event), class:"event-link"  do %>
-    <div class="d-flex flex-row">
-      <div class="col-4"><%= event.date %></div>
-      <div class="col-8">
-        <div class="row">
-        <%= event.title %>
-        </div>
-        <div class="row">
-        <%= event.longitude %>
-        <%= event.latitude  %>
-        </div>
-        <div class="card-body text-center">
-        <%= button_to "Destroy", group_event_path(group_id: @group.id, id: event.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm btn-block" %>  
-        </div>
-      </div>
-
+<div class="col-10 mx-auto">
+  <div class="card mt-4">
+    <div class="card-header text-center bg-warning">
+      <h2 class="font-weight-bold"><%= @group.name %> events</h2>
     </div>
-  <% end %>
-  <% end %>
-</div>  
+    <div class="card-body card-bg p-0">
+      <div class="col justify-content-center">
+        <% if !(@group.events.today_events.exists? && @group.events.past_events.exists?) %>
+          <p>There are no events yet.</p>
+        <% else %>
+          <% (@group.events.order(date: :asc)-@group.events.past_events.order(date: :asc)).first(8).each do |event| %>
+            <%=link_to  group_event_path(@group, event), class:"event-link" do %>
+            <% if event.date == Date.today%>
+              <div id="accordion" class="my-2 pb-2 border-bottom border-secondary" style="background: rgb(255, 247, 230)">
+            <%else%>
+              <div id="accordion" class="bg-light my-2 pb-2 border-bottom border-secondary">
+            <%end%>
+                <div class="d-flex align-items-center justify-content-between">
+                <% if event.date == Date.today%>
+                  <div class="ml-4 today-date">
+                <%else%>
+                  <div class="ml-4">
+                <%end%>
+                    <h4 class="mb-0"><%= event.date.strftime("%d") %></h4>
+                    <p class="mb-0"><small><%= event.date.strftime("%B").upcase %></small></p>
+                  </div>
+                  <h5 class="mb-0 mr-4 text-dark">
+                    <%= event.title.upcase %>
+                  </h5>
+                  <div class="d-flex justify-content-around">
+                    <%= button_to "Show", group_event_path(group_id: @group.id, id: event.id), class: "btn btn-warning btn-sm btn-block" %>
+                    <%= button_to "Destroy", group_event_path(group_id: @group.id, id: event.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm btn-block" %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
