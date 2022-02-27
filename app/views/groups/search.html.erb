@@ -1,8 +1,32 @@
-<h1>Search Results for: <%= "#{params[:q]}" %></h1>
+<div class="container">
+  <h1 class="text-center font-weight-bold my-4">Results for: <%= "#{params[:q]}" %></h1>
 
-<% @groups.each do |group| %>
-    <p>
-        <%= group.name %>
-        <%= group.activity_type %>
-    </p>
-<% end %>    
+  <table class="table table-striped mx-auto align-center">
+    <thread>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Activity type</th>
+        <th>Link</th>
+        
+      </tr>
+    </thread>
+
+    <tbody>
+      <% @groups.each do |group| %>
+        <tr>
+          <% if group.avatar.present? %>
+            <td><%= image_tag group.avatar, class: "thumbnail" %></td>
+          <% else %>
+            <td><%= image_tag "group_ph.jpg", class: "thumbnail" %></td>
+          <% end %>
+          <td class="pt-4"><%= group.name %></td>
+          <td class="pt-4"><%= group.activity_type %></td>
+          <td class="btn pt-3">
+            <%= link_to 'Visit', group, class: "btn btn-outline-warning btn-sm" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>  
