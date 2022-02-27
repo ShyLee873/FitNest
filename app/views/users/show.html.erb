@@ -80,7 +80,7 @@
               <p class="card-text"><%= simple_format(@user.about_me) %></p>
             <% end %>
 
-            <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-warning btn-sm btn-block" %>  
+            <small><%= link_to "Edit Profile", edit_user_path(@user), class:"text-warning" %></small>  
           </div>
         </div>
       </div>
@@ -91,7 +91,9 @@
         <div class="card mb-2 mx-1 my-1 card-bg" style="width: 36rem;">
           <h3 class="card-header bg-warning text-center font-weight-bold">Latest Posts</h3>
           <div class="card-body text-center">
-            <%= link_to "New Post", new_user_post_path(@user.id.to_i), class: "btn btn-warning btn-sm btn-block"  %>
+            <% if @user.posts.exists? %>
+              <%= link_to "New Post", new_user_post_path(@user.id.to_i), class: "btn btn-warning btn-sm btn-block" %>
+            <% end %>
 
             <% if !@user.posts.exists? %>
               <%= link_to "New Post", new_post_path, class: "btn btn-sm btn-warning" %>
@@ -135,20 +137,7 @@
      
       <!-- /Post display -->
 
-      <div class="row justify-content-center mt-4">
-          <%= link_to 'Back', url_for(:back), class:"btn btn-sm btn-warning" %>
-      </div>
-      <div class="row justify-content-center mt-4">
-          <%= button_to "delete my profile", user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
-      </div>  
-      
     </div>  
-
-    <!-- /Middle col -->
-
-    <!-- User Nav removed for cleaner mobile view -->
-
-    
   </div>
 </div>
 

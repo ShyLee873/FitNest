@@ -5,7 +5,19 @@
       <br>
       <p><em>“Setting goals is the first step in turning the invisible into the visible.”<br>-Tony Robbins</em></p>
       <h4>Need to change something?</h4><br>
-      <p>Then you've come to the right place. Here you can update your personal details or add a group!</p>
+      <p>Then you've come to the right place. Here you can update your personal details!</p>
+      
+      <button class="btn btn-outline-danger mt-5" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
+        <h6>Delete Your Profile?</h6>
+      </button>
+
+      <div class="collapse" id="collapse">
+        <div class="card card-body">
+          <p>We'd hate to see you go, but we'll be ready to welcome you back anytime. </p>
+          <small><%= link_to "delete my profile", user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-danger" %></small>
+        </div>
+      </div>
+
 
       <br><br><%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-warning" %>
     </div>
