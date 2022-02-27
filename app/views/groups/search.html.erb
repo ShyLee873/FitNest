@@ -1,32 +1,38 @@
 <div class="container">
-  <h1 class="text-center font-weight-bold my-4">Results for: <%= "#{params[:q]}" %></h1>
+  <h1 class="text-center font-weight-bold my-5">Results for: <%= "#{params[:q]}" %></h1>
 
-  <table class="table table-striped mx-auto align-center">
-    <thread>
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Activity type</th>
-        <th>Link</th>
-        
-      </tr>
-    </thread>
-
-    <tbody>
-      <% @groups.each do |group| %>
+  <% if @groups.empty? %>
+    <h4 class="text-center"><%= "Hey, there aren't any #{params[:q].downcase} groups yet!" %></h4><br>
+    <div class="row justify-content-center">
+      <%= link_to 'Start a New Group!', new_group_path, class: "btn btn-md btn-warning mx-1 mx-auto" %>
+    </div>
+  <% else %>
+    <table class="table table-striped mx-auto align-center">
+        <thread>
         <tr>
-          <% if group.avatar.present? %>
-            <td><%= image_tag group.avatar, class: "thumbnail" %></td>
-          <% else %>
-            <td><%= image_tag "group_ph.jpg", class: "thumbnail" %></td>
-          <% end %>
-          <td class="pt-4"><%= group.name %></td>
-          <td class="pt-4"><%= group.activity_type %></td>
-          <td class="btn pt-3">
-            <%= link_to 'Visit', group, class: "btn btn-outline-warning btn-sm" %>
-          </td>
+            <th></th>
+            <th>Name</th>
+            <th>Activity type</th>
+            <th>Link</th>            
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+        </thread>
+
+        <tbody>
+        <% @groups.each do |group| %>
+            <tr>
+            <% if group.avatar.present? %>
+                <td><%= image_tag group.avatar, class: "thumbnail" %></td>
+            <% else %>
+                <td><%= image_tag "group_ph.jpg", class: "thumbnail" %></td>
+            <% end %>
+            <td class="pt-4"><%= group.name %></td>
+            <td class="pt-4"><%= group.activity_type %></td>
+            <td class="btn pt-3">
+                <%= link_to 'Visit', group, class: "btn btn-outline-warning btn-sm" %>
+            </td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+  <% end %>  
 </div>  
