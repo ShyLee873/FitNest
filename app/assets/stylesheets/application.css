@@ -69,7 +69,7 @@ body {
 }
 
 .footer {
-    position: fixed;
+    position: sticky;
     width: 100%;
     left: 0;
     bottom: 0;
