@@ -45,24 +45,26 @@
                   <%= link_to 'New Group', new_group_path, class: "dropdown-item" %>
                 </div>
               </li>
+              <li class="nav-item">
+                  <%= link_to 'My Profile', user_path(current_user.id), class: "nav-link text-light" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Log Out', signout_path, class: "nav-link text-light" %> 
+              </li>
             <% end %>  
-            <li class="nav-item">
-              <%if user_signed_in?%>
-                <%= link_to 'My Profile', user_path(current_user.id), class: "nav-link text-light" %>
-              <%end%>
-            </li>
-            <li class="nav-item">
-              <%if user_signed_in?%>
-                <%= link_to 'Log Out', signout_path, class: "nav-link text-light" %>
-              <%end%>
-            </li>
           </ul>
         <div>  
+        <% if user_signed_in? %>
+          <form class="form-inline my-2 my-lg-0" action="/search">
+            <input class="form-control mr-sm-2 collapse navbar-collapse" id="navbarNavDropdown" name="q" type="text" placeholder="Search groups by activity" aria-label="Search Groups">
+            <button class="btn btn-outline-secondary my-2 my-sm-0 mr-2 collapse navbar-collapse" id="navbarNavDropdown"" type="submit">Search</button>
+          </form>
+        <% end %>  
       </nav>
-
+      
     </header>
 
-    <div class="container">
+    <div class="container mb-2">
       <%= yield %>
     </div>
 
@@ -70,7 +72,6 @@
     <p>&copy; 2021 fitnest.com || Hiphopopotamus Studios </p> 
     </footer>
     
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+  
   </body>
 </html>

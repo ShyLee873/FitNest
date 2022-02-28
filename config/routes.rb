@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :users
   
   get '/groups/:id/members', to: 'groups#members', as: 'group_members'
-
+  get '/search', to: 'groups#search'
   
   delete '/users/:id/memberships/:group_id', to: 'users#delete_membership', as: 'delete_membership'
   delete '/groups/:id/memberships/:user_id', to: 'groups#delete_user_membership', as: 'delete_user_membership'

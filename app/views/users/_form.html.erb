@@ -34,10 +34,6 @@
         <small>Numbers only, no dashes</small>
       </div>
 
-      <div class="mb-2">
-        <%= form.label "Group", {class: "form-label font-weight-bold"} %>
-        <%= form.collection_select :group_id, Group.all, :id, :name, include_blank: true %>
-      </div>
 
       <div class="mb-3">
         <%= form.label "Profile Photo", {class: "form-label font-weight-bold"} %>
@@ -53,7 +49,6 @@
       <div class="actions">
         <%= form.submit "Let's Go!", class: "btn btn-block btn-warning"  %>
       </div>
-      <br>
       <small>Fields marked with * are required</small>
     </div>  
   </div>  
