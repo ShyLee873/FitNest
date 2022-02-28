@@ -4,10 +4,10 @@
   <div class="row justify-content-center">
     <div class="card" style="width: 40rem;">
       <h3 class="card-header bg-warning text-center font-weight-bold">
-      <% if user.avatar.persisted? %> 
-        <img src="<%=(url_for(user.avatar))%>" class="thumbnail" alt="<%= user.full_name%>">
+      <% if user.avatar.attached? %> 
+        <img src="<%=(url_for(user.avatar))%>" class="thumbnail" alt="">
       <% else %>
-        <img src="" class="thumbnail" alt="<%= user.full_name%>">
+        <%= image_tag "user_ph.jpg", class:"thumbnail", alt:"" %>
       <% end %>
         <%= user.first_name %>
       </h3>
