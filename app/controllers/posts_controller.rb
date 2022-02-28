@@ -1,8 +1,9 @@
 class PostsController < ApplicationController
 
   # before_action :require_authentication
-  before_action :set_post, only: %i[ show edit update destroy ]
-  before_action :authorize_post!
+  before_action :set_user, except: [:show]
+  before_action :set_post, only: %i[ edit update destroy ]
+  before_action :authorize_post!, except: [:new, :create, :show]
   after_action :verify_authorized
 
 
@@ -13,23 +14,24 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    @post = Post.find(params[:id])
+    authorize(@post)
   end
 
   # GET /posts/new
   def new
-    @post = Post.new
-    @user_id = params[:user_id]
+    @post = @user.posts.new
+    authorize(@post)
   end
 
   # GET /posts/1/edit
   def edit
-    
   end
 
   # POST /posts or /posts.json
   def create
-    @user_id = params[:post][:user_id]
-    @post = Post.new(post_params)
+    @post = @user.posts.new(post_params)
+    authorize(@post)
     respond_to do |format|
       if @post.save
         format.html { redirect_to user_url(id: @post.user_id), notice: "Post was successfully created." }
@@ -45,7 +47,6 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        @user_id = params[:user_id]
         format.html { redirect_to @post, notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -68,12 +69,16 @@ class PostsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
+    def set_user
+      @user = User.find(params[:user_id])
     end
-    def authorize_post!
 
-      authorize(@post || Post)
+    def set_post
+      @post = @user.posts.find(params[:id])
+    end
+
+    def authorize_post!
+      authorize(@post)
     end
 
     # Only allow a list of trusted parameters through.

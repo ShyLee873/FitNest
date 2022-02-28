@@ -27,7 +27,4 @@ class UserPolicy < ApplicationPolicy
   def edit?
     user == record || user.admin_role?
   end
-
-
-
 end

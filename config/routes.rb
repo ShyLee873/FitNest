@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   end
   resources :users
   
-  get '/posts/new/:user_id', to: 'posts#new', as: 'new_user_post'
   get '/groups/:id/members', to: 'groups#members', as: 'group_members'
 
   
