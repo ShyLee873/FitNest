@@ -91,50 +91,43 @@
         <div class="card mb-2 mx-1 my-1 card-bg" style="width: 36rem;">
           <h3 class="card-header bg-warning text-center font-weight-bold">Latest Posts</h3>
           <div class="card-body text-center">
-            <% if @user.posts.exists? %>
-              <%= link_to "New Post", new_user_post_path(@user.id.to_i), class: "btn btn-warning btn-sm btn-block" %>
-            <% end %>
+            <%= link_to "New Post", new_post_path(user_id: @user.id), class: "btn btn-sm btn-warning" %>
+            <% @user.posts.each do |post| %>
+              <div class="card border border-warning  mx-1 my-3" style="width: 32 rem;">
+                <div class="card-header text-center mt-1">
+                  <h6 class="font-weight-bold" ><%= post.title %></h6>
+                  <small><%= link_to "Edit Post", edit_post_path(post, user_id: @user.id), class: "btn btn-sm btn-warning" %>
+                  <%= link_to 'Delete', post_path(post, user_id: @user.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %></small>
+                </div>
 
-            <% if !@user.posts.exists? %>
-              <%= link_to "New Post", new_post_path, class: "btn btn-sm btn-warning" %>
-            <% elsif @user.posts.exists? %>
-              <% @user.posts.each do |post| %>
-                <div class="card border border-warning  mx-1 my-3" style="width: 32 rem;">
-                  <div class="card-header text-center mt-1">
-                      <h6 class="font-weight-bold" ><%= post.title %></h6>
-                      <small><%= link_to "Edit Post", edit_post_path(post) %> |
-                      <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %></small>
-                  </div>
-                    
-                  <div class="card-body text-center">
-                  <small class="card-title"><%= post.created_at.to_date %></small>
-                    <p class="card-text mt-2"><%= post.content%></p>
-                  </div>
+                <div class="card-body text-center">
+                <small class="card-title"><%= post.created_at.to_date %></small>
+                  <p class="card-text mt-2"><%= post.content%></p>
+                </div>
 
-                  <div class="card-footer text-center text-muted">
-                    <p><%= post.likes.count %> <%= (post.likes.count) == 1 ? "Like" : "Likes" %></p>
-                    <% pre_like = post.likes.find { |like| like.user_id == current_user.id} %>
-                    <% if pre_like %>
-                      <%= button_to 'Unlike', post_like_path(post, pre_like), method: :delete %>
-                    <% else %>
-                      <%= button_to 'Like', post_likes_path(post), method: :post %>
-                    <% end %>
-                  </div>
-                  
-                  <%= render partial: "comments/form", locals: { commentable: post } %>
-                  <% if !post.comments.exists? %>
-                    <small class="my-2">Be the first to comment!</small>
-                  <% elsif post.comments.exists? %>  
-                    <small><%= "#{post.comments.count} comments" %></small>
-                    <%= render partial: "comments/comments", locals: { commentable: post } %>
+                <div class="card-footer text-center text-muted">
+                  <p><%= post.likes.count %> <%= (post.likes.count) == 1 ? "Like" : "Likes" %></p>
+                  <% pre_like = post.likes.find { |like| like.user_id == current_user.id} %>
+                  <% if pre_like %>
+                    <%= button_to 'Unlike', post_like_path(post, pre_like), method: :delete %>
+                  <% else %>
+                    <%= button_to 'Like', post_likes_path(post), method: :post %>
                   <% end %>
-                </div>      
-              <% end %>  
+                </div>
+
+                <%= render partial: "comments/form", locals: { commentable: post } %>
+                <% if !post.comments.exists? %>
+                  <small class="my-2">Be the first to comment!</small>
+                <% elsif post.comments.exists? %>
+                  <small><%= "#{post.comments.count} comments" %></small>
+                  <%= render partial: "comments/comments", locals: { commentable: post } %>
+                <% end %>
+              </div>
             <% end %>
           </div>
         </div>
       </div>
-     
+
       <!-- /Post display -->
 
     </div>  
