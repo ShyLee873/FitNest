@@ -2,21 +2,18 @@ class EventsController < ApplicationController
   #  before_action :require_authentication
   before_action :set_event, only: %i[ show edit update destroy ]
   before_action :set_group, only: %i[ destroy create index new show edit update]
-  before_action :authorize_event!, except: [:new, :create, :index ]
+  before_action :authorize_event!, except: [:new, :create ]
   after_action :verify_authorized
 
 
   # GET /events or /events.json
   def index
     @group = Group.find(params[:group_id])
-    if params[:upcoming]
-    @events = @group.events.upcoming_events
-    elsif params[:past]
-      @events = @group.events.past_events 
+    if params[:past]
+      @events = @group.events.past_events.order(date: :asc)
     else
-      @events = @group.events
+      @events = @group.events.order(date: :asc)-@group.events.past_events.order(date: :asc)
     end
-    authorize @events
   end
 
   # GET /events/1 or /events/1.json
@@ -79,7 +76,7 @@ class EventsController < ApplicationController
     end
 
     def authorize_event!
-      authorize(@event)
+      authorize(@event || Event)
     end
 
     # Only allow a list of trusted parameters through.
