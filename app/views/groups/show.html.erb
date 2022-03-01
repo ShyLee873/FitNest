@@ -13,9 +13,9 @@
         <h3 class="card-title text-muted text-center perm pt-2"><%= @group.activity_type %></h3> 
         <div class="card-body card-bg">
           <% if @group.avatar.attached? %>
-            <img src="<%=(url_for(@group.avatar))%>" class="avatar img-fluid" alt="<%= @group.name%>">
+            <img src="<%=(url_for(@group.avatar))%>" class="avatar" alt="<%= @group.name%>">
           <% else %>
-            <%= image_tag "group_ph.jpg", class:"avatar img-fluid" %>
+            <%= image_tag "group_ph.jpg", class:"avatar" %>
           <%end%>
         </div>
 
@@ -65,7 +65,7 @@
             <% if (@group.events.today_events.empty? && @group.events.upcoming_events.empty?) %>
               <p>There are no events yet.</p>
             <% else %>
-              <% (@group.events.order(date: :asc)-@group.events.past_events.order(date: :asc)).first(8).each do |event| %>
+              <% (@group.events.order(date: :asc)-@group.events.past_events.order(date: :asc)).first(5).each do |event| %>
               <%=link_to  group_event_path(@group, event), class:"event-link" do %>
                 <% if event.date == Date.today%>
                   <div id="accordion" class="my-2 pb-2 border-bottom border-secondary" style="background: rgb(255, 247, 230)">
