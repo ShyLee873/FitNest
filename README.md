@@ -1,24 +1,69 @@
-# README
+# Fitnest
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[fitnest-heroku.herokuapp.com](https://fitnest-heroku.herokuapp.com)
 
-Things you may want to cover:
+### About:
+This repo was created as a final project for CTD Ruby on Rails (Red Eel) and subsequently refactored for the CTD RoR Practicum (Spring 2022).
 
-* Ruby version
+This project was designed to help people find groups of people with similar fitness goals, in settings where groups are hard to find. 
 
-* System dependencies
+### Contributors:
+shylee873@gmail.com (admin)
 
-* Configuration
+kostik700015@gmail.com (collaborator)
 
-* Database creation
+jequel07@gmail.com (collaborator)
 
-* Database initialization
+## Install
 
-* How to run the test suite
+### Clone the repository:
 
-* Services (job queues, cache servers, search engines, etc.)
+```shell
+https://github.com/ShyLee873/rails-final.git
+cd rails-final
+```
 
-* Deployment instructions
+### Check your Ruby version:
 
-* ...
+```shell
+ruby -v
+```
+
+The ouput should start with something like `ruby 3.0.1`
+
+If not, install the right ruby version using [rbenv](https://github.com/rbenv/rbenv) (it could take a while):
+
+```shell
+rbenv install 3.0.1
+```
+
+### Install dependencies:
+
+Using [Bundler](https://github.com/bundler/bundler) and [Yarn](https://github.com/yarnpkg/yarn):
+
+```shell
+bundle install
+yarn install
+```
+
+
+### Initialize the database:
+
+```shell
+rails db:migrate 
+```
+contact shylee873@gmail.com for master.key or rake for new
+
+
+## Local Server:
+
+vagrant
+```shell
+bin/rails s -b 0.0.0.0
+```
+
+else
+```shell
+rails s 
+```
+
