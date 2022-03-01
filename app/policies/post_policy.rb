@@ -13,7 +13,11 @@ class PostPolicy < ApplicationPolicy
   end
 
   def create?
-    user.author?(record)
+    if record.postable_type == "Group" 
+      true
+    else 
+      user.author?(record)
+    end
   end
   
   def edit?

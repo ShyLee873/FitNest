@@ -46,8 +46,6 @@
                       <%= button_to "Edit", edit_group_event_path(group_id: @group.id, id: event.id), method: :get, class: "btn btn-warning btn-sm btn-block" %>
                       <%= button_to "Destroy", group_event_path(group_id: @group.id, id: event.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm btn-block" %>
                     </div>
-                  <% else %>
-                    <%= button_to "Edit", group_event_path(group_id: @group.id, id: event.id), class: "btn btn-warning btn-sm btn-block" %>
                   <%end%>
                 </div>
               </div>
