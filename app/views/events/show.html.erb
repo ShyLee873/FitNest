@@ -55,6 +55,16 @@
     </div>
   </div>
   <div class="row justify-content-center mb-3 pb-3">
-    <%= link_to 'Back', url_for(:back), class: "btn btn-sm btn-warning" %>
+    <%= link_to 'Back to Group', group_path(@group), class: "btn btn-sm btn-warning" %>
   </div>
+
+  <!-- Event comments -->
+  <% if !@event.comments.exists? %>
+  <div class="my-2 text-center">
+    <small class="mx-auto">Be the first to comment!</small>
+  </div>
+  <% elsif @event.comments.exists? %>
+    <%= render partial: "comments/comments", locals: { commentable: @event } %>
+  <% end %>
+  <%= render partial: "comments/form", locals: { commentable: @event } %>
 </div>

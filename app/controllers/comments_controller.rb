@@ -3,6 +3,9 @@ class CommentsController < ApplicationController
     
 
     def create 
+        if params[:event_id]
+            @commentable = Event.find(params[:event_id])
+        end
         @comment = @commentable.comments.new(comment_params)
         @comment.user_id = current_user.id
         @comment.save
