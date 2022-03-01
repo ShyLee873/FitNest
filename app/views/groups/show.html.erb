@@ -102,3 +102,33 @@
   </div>  
   <%= link_to "Members (#{@group.memberships.count})", group_members_path(@group), class: "btn btn-warning btn-sm btn-block" %>
 </div>
+
+<div class="row justify-content-center">
+  <div class="card mb-2 mx-1 my-1 card-bg" style="width: 36rem;">
+    <h3 class="card-header bg-warning text-center font-weight-bold">Latest Posts</h3>
+    <div class="card-body text-center">
+      <%= link_to "New Post", new_post_path(group_id: @group.id), class: "btn btn-sm btn-warning" %>
+      <% @group.posts.each do |post| %>
+        <div class="card border border-warning  mx-1 my-3" style="width: 32 rem;">
+          <div class="card-header text-center mt-1">
+            <h6 class="font-weight-bold" ><%= post.title %></h6>
+            <small><%= link_to "Edit Post", edit_post_path(post, group_id: @group.id), class: "btn btn-sm btn-warning" %>
+            <%= link_to 'Delete', post_path(post, group_id: @group.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %></small>
+          </div>
+
+          <div class="card-body text-center">
+          <small class="card-title"><%= post.created_at.to_date %></small>
+            <p class="card-text mt-2"><%= post.content%></p>
+          </div>
+
+          <!-- Post likes -->
+          <%= render "users/likes", post: post %>
+
+          <!-- Post comments -->
+          <%= render "users/comments", post: post %>
+
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

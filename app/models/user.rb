@@ -35,7 +35,7 @@ class User < ApplicationRecord
     end
 
     def author?(obj)
-        obj.user == self
+        User.find(obj.postable_id)== self
     end
     
 end

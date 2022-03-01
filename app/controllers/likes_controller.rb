@@ -8,7 +8,11 @@ class LikesController < ApplicationController
         else
             @post.likes.create(user_id: current_user.id)
         end
-        redirect_to user_url(id: @post.user_id) 
+        if @post.postable_type == "User"
+            redirect_to user_url(id: @post.postable_id)
+        else
+            redirect_to group_url(id: @post.postable_id)
+        end
    end
 
    def destroy
@@ -17,7 +21,11 @@ class LikesController < ApplicationController
         else
             @like.destroy
         end
-        redirect_to user_url(id: @post.user_id)
+        if @post.postable_type == "User"
+            redirect_to user_url(id: @post.postable_id)
+        else
+            redirect_to group_url(id: @post.postable_id)
+        end
   end
 
 

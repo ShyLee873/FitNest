@@ -33,7 +33,11 @@ class PostsController < ApplicationController
     authorize(@post)
     respond_to do |format|
       if @post.save
-        format.html { redirect_to user_url(id: @post.user_id), notice: "Post was successfully created." }
+        if @post.postable_type == "User"
+          format.html { redirect_to user_url(id: @post.postable_id), notice: "Post was successfully created." }
+        else
+          format.html { redirect_to group_url(id: @post.postable_id), notice: "Post was successfully created." }
+        end
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -59,7 +63,11 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to user_url(id: @post.user_id), notice: "Post was successfully destroyed." }
+      if @post.postable_type == "User"
+        format.html { redirect_to user_url(id: @post.postable_id), notice: "Post was successfully destroyed." }
+      else 
+        format.html { redirect_to group_url(id: @post.postable_id), notice: "Post was successfully destroyed." }
+      end
       format.json { head :no_content }
     end
   end
