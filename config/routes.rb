@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   resources :groups do
     resources :events
   end
+
+  resources :events do
+    resources :comments
+  end
+  
   resources :posts do
     resources :likes
     resources :comments, module: :posts
