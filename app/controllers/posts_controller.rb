@@ -1,11 +1,10 @@
 class PostsController < ApplicationController
 
   # before_action :require_authentication
-  before_action :set_user, except: [:show]
+  before_action :set_user_group, except: [:show, :index]
   before_action :set_post, only: %i[ edit update destroy ]
   before_action :authorize_post!, except: [:new, :create, :show]
   after_action :verify_authorized
-
 
   # GET /posts or /posts.json
   def index
@@ -20,7 +19,7 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = @user.posts.new
+    @post = @user_group.posts.new
     authorize(@post)
   end
 
@@ -30,11 +29,15 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = @user.posts.new(post_params)
+    @post = @user_group.posts.new(post_params)
     authorize(@post)
     respond_to do |format|
       if @post.save
-        format.html { redirect_to user_url(id: @post.user_id), notice: "Post was successfully created." }
+        if @post.postable_type == "User"
+          format.html { redirect_to user_url(id: @post.postable_id), notice: "Post was successfully created." }
+        else
+          format.html { redirect_to group_url(id: @post.postable_id), notice: "Post was successfully created." }
+        end
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -56,29 +59,35 @@ class PostsController < ApplicationController
     end
   end
 
-
-
   # DELETE /posts/1 or /posts/1.json
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_to user_url(id: @post.user_id), notice: "Post was successfully destroyed." }
+      if @post.postable_type == "User"
+        format.html { redirect_to user_url(id: @post.postable_id), notice: "Post was successfully destroyed." }
+      else 
+        format.html { redirect_to group_url(id: @post.postable_id), notice: "Post was successfully destroyed." }
+      end
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:user_id])
+    def set_user_group
+      if params[:user_id]
+        @user_group = User.find(params[:user_id])
+      else
+        @user_group = Group.find(params[:group_id])
+      end
     end
 
     def set_post
-      @post = @user.posts.find(params[:id])
+      @post = @user_group.posts.find(params[:id])
     end
 
     def authorize_post!
-      authorize(@post)
+      authorize(@post || Post)
     end
 
     # Only allow a list of trusted parameters through.

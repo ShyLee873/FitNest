@@ -27,7 +27,7 @@ class User < ApplicationRecord
     has_many :memberships
     has_many :groups, through: :memberships, dependent: :destroy
     has_one_attached :avatar 
-    has_many :posts
+    has_many :posts, as: :postable
     has_many :likes, dependent: :destroy
 
     def full_name
@@ -35,7 +35,7 @@ class User < ApplicationRecord
     end
 
     def author?(obj)
-        obj.user == self
+        User.find(obj.postable_id)== self
     end
     
 end

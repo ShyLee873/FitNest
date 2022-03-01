@@ -13,9 +13,9 @@
         <h3 class="card-title text-muted text-center perm pt-2"><%= @group.activity_type %></h3> 
         <div class="card-body card-bg">
           <% if @group.avatar.attached? %>
-            <img src="<%=(url_for(@group.avatar))%>" class="avatar img-fluid" alt="<%= @group.name%>">
+            <img src="<%=(url_for(@group.avatar))%>" class="avatar" alt="<%= @group.name%>">
           <% else %>
-            <%= image_tag "group_ph.jpg", class:"avatar img-fluid" %>
+            <%= image_tag "group_ph.jpg", class:"avatar" %>
           <%end%>
         </div>
 
@@ -65,7 +65,7 @@
             <% if (@group.events.today_events.empty? && @group.events.upcoming_events.empty?) %>
               <p>There are no events yet.</p>
             <% else %>
-              <% (@group.events.order(date: :asc)-@group.events.past_events.order(date: :asc)).first(8).each do |event| %>
+              <% (@group.events.order(date: :asc)-@group.events.past_events.order(date: :asc)).first(5).each do |event| %>
               <%=link_to  group_event_path(@group, event), class:"event-link" do %>
                 <% if event.date == Date.today%>
                   <div id="accordion" class="my-2 pb-2 border-bottom border-secondary" style="background: rgb(255, 247, 230)">
@@ -101,4 +101,34 @@
   <!-- /Members display -->
   </div>  
   <%= link_to "Members (#{@group.memberships.count})", group_members_path(@group), class: "btn btn-warning btn-sm btn-block" %>
+</div>
+
+<div class="row justify-content-center">
+  <div class="card mb-2 mx-1 my-1 card-bg" style="width: 36rem;">
+    <h3 class="card-header bg-warning text-center font-weight-bold">Latest Posts</h3>
+    <div class="card-body text-center">
+      <%= link_to "New Post", new_post_path(group_id: @group.id), class: "btn btn-sm btn-warning" %>
+      <% @group.posts.each do |post| %>
+        <div class="card border border-warning  mx-1 my-3" style="width: 32 rem;">
+          <div class="card-header text-center mt-1">
+            <h6 class="font-weight-bold" ><%= post.title %></h6>
+            <small><%= link_to "Edit Post", edit_post_path(post, group_id: @group.id), class: "btn btn-sm btn-warning" %>
+            <%= link_to 'Delete', post_path(post, group_id: @group.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %></small>
+          </div>
+
+          <div class="card-body text-center">
+          <small class="card-title"><%= post.created_at.to_date %></small>
+            <p class="card-text mt-2"><%= post.content%></p>
+          </div>
+
+          <!-- Post likes -->
+          <%= render "users/likes", post: post %>
+
+          <!-- Post comments -->
+          <%= render "users/comments", post: post %>
+
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

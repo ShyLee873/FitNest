@@ -101,27 +101,13 @@
                 </div>
 
                 <div class="card-body text-center">
-                <small class="card-title"><%= post.created_at.to_date %></small>
+                  <small class="card-title"><%= post.created_at.to_date %></small>
                   <p class="card-text mt-2"><%= post.content%></p>
                 </div>
 
-                <div class="card-footer text-center text-muted">
-                  <p><%= post.likes.count %> <%= (post.likes.count) == 1 ? "Like" : "Likes" %></p>
-                  <% pre_like = post.likes.find { |like| like.user_id == current_user.id} %>
-                  <% if pre_like %>
-                    <%= button_to 'Unlike', post_like_path(post, pre_like), method: :delete %>
-                  <% else %>
-                    <%= button_to 'Like', post_likes_path(post), method: :post %>
-                  <% end %>
-                </div>
-
-                <%= render partial: "comments/form", locals: { commentable: post } %>
-                <% if !post.comments.exists? %>
-                  <small class="my-2">Be the first to comment!</small>
-                <% elsif post.comments.exists? %>
-                  <small><%= "#{post.comments.count} comments" %></small>
-                  <%= render partial: "comments/comments", locals: { commentable: post } %>
-                <% end %>
+                <%= render "likes", post: post %>
+                <%= render "comments", post: post %>
+                
               </div>
             <% end %>
           </div>
@@ -131,6 +117,9 @@
       <!-- /Post display -->
 
     </div>  
+  </div>
+  <div class="row justify-content-md-center mx-2 my-5 pl-5 pr-2">
+    
   </div>
 </div>
 

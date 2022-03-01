@@ -1,5 +1,9 @@
 <%= form_with(model: post) do |form| %>
-  <%= hidden_field_tag :user_id, @user.id %>
+  <% if post.postable_type == "User"%>
+    <%= hidden_field_tag :user_id, @user_group.id %>
+  <% else %>
+    <%= hidden_field_tag :group_id, @user_group.id %>
+  <% end %>
   <% if post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>

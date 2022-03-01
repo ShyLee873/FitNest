@@ -1,0 +1,13 @@
+<% if user.avatar.attached? %> 
+  <img src="<%=(url_for(user.avatar))%>" class="thumbnail" alt="">
+<% else %>
+  <%= image_tag "user_ph.jpg", class:"thumbnail", alt:"" %>
+<% end %>
+  <%= user.first_name %>
+</h3>
+<div class="card-body text-center mb-3">
+  <h5 class="card-title font-weight-bold"><%= @post.title %></h5>
+  <p class="mb-5"><%= @post.content %></p>
+  <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-sm btn-warning" %>
+  <%= link_to 'Back to User' , user_path(user), class: "btn btn-sm btn-warning" %>
+</div>
