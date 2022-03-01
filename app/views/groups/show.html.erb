@@ -1,13 +1,13 @@
 <p class="text-center" id="notice"><%= notice %></p>
 
-<div class="container-fluid">
-<div class="">
-  <%= link_to 'Back to Groups', url_for(:back), class: "btn btn-warning btn-sm btn-block" %>
-</div>
-  <div class="row justify-content-center my-4 pl-5 pr-2">
+<div class="container-fluid mb-4">
+  <div class="">
+    <%= link_to 'Back to Groups', url_for(:back), class: "btn btn-warning btn-sm btn-block" %>
+  </div>
+  <div class="row justify-content-center my-4 pl-2 pr-2">
     <!-- Profile photo -->
 
-    <div class="col-md-7 px-5 mb-5 mx-auto">
+    <div class="col-md-7 px-2 mb-5 mx-auto">
       <div class="card text-center">
         <h1 class="card-header bg-warning text-center font-weight-bold"><%= @group.name %></h1>
         <h3 class="card-title text-muted text-center perm pt-2"><%= @group.activity_type %></h3> 
@@ -49,69 +49,86 @@
           <%= link_to "Destroy", group_path(@group), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-block", style:"background: rgb(221, 95, 36); color: #000"%>  
           </div>
         </div>
+
       </div>
     </div>
     <!-- /Profile photo -->
     
     <!-- Events display -->
-    <div class="col-md mr-4">
+    <div class="col-md pr-2">
       <div class="card">
         <div class="card-header text-center bg-warning">
-          <h3 class="font-weight-bold">Today events</h3>
+          <h3 class="font-weight-bold"><%= @group.name %> events</h3>
         </div>
-        <div class="card-body card-bg">
-          <div class="row justify-content-center">
-            <% if !@group.events.exists? %>
+        <div class="card-body card-bg p-0">
+          <div class="col justify-content-center">
+            <% if (@group.events.today_events.empty? && @group.events.upcoming_events.empty?) %>
               <p>There are no events yet.</p>
             <% else %>
-              <div id="accordion">
-                <% @group.events.each do |event| %>
-                  <div class="card">
-                    <div class="card-header d-flex align-items-center justify-content-between py-1" id="headingOne">
-                      <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target=<%="#collapse#{event.id}"%> aria-expanded="false" aria-controls=<%="collapse#{event.id}"%> >
-                          <%= event.title %>
-                        </button>
-                      </h5>
-                      <p class="mb-0"><%= event.date.strftime("%m/%d/%Y") %></p>
-                    </div>
-                    <div id=<%="collapse#{event.id}"%> class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                      <div class="card-body">
-                        <%= event.body %>
+              <% (@group.events.order(date: :asc)-@group.events.past_events.order(date: :asc)).first(5).each do |event| %>
+              <%=link_to  group_event_path(@group, event), class:"event-link" do %>
+                <% if event.date == Date.today%>
+                  <div id="accordion" class="my-2 pb-2 border-bottom border-secondary" style="background: rgb(255, 247, 230)">
+                <%else%>
+                  <div id="accordion" class="bg-light my-2 pb-2 border-bottom border-secondary">
+                <%end%>
+                    <div class="d-flex align-items-center justify-content-between">
+                    <% if event.date == Date.today%>
+                      <div class="ml-4" style="color: rgb(221, 95, 36)">
+                    <%else%>
+                      <div class="ml-4">
+                    <%end%>
+                        <h4 class="mb-0"><%= event.date.strftime("%d") %></h4>
+                        <p class="mb-0"><small><%= event.date.strftime("%B").upcase %></small></p>
                       </div>
+                      <h5 class="mb-0 mr-4 text-dark">
+                        <%= event.title.upcase %>
+                      </h5>
                     </div>
                   </div>
                 <% end %>
-              </div>
+              <% end %>
             <% end %>
           </div> 
         </div>
-        <%= link_to 'Past events', group_events_path(@group), class: "btn btn-warning btn-sm btn-block" %>
-        <%= link_to 'Upcoming events', group_events_path(@group), class: "btn btn-warning btn-sm btn-block" %>
+        <%= link_to 'All current and upcoming events', group_events_path(@group), class: "btn btn-warning btn-sm btn-block" %>
+        <%= link_to 'Past events', group_events_path(@group, past: true), class: "btn btn-warning btn-sm btn-block" %>
         <%= link_to 'Create event', new_group_event_path(@group), class: "btn btn-warning btn-sm btn-block" %>
       </div>
     <div>
   </div>
 
-
-
-    <!-- Group Nav -->
-    
-    <div class="col-1 px-0">
-      <nav class="nav flex-column text-right">
-        <li class="nav-item mb-2">
-          <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-warning btn-sm btn-block" %>
-        </li>
-        <li class="nav-item mb-2">
-        <%= link_to "Destroy", group_path(@group), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm btn-block" %>  
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Back', url_for(:back), class: "btn btn-warning btn-sm btn-block" %>
-        </li>
-      </nav>
-    </div>
-
-        <!-- /Members display -->
+  <!-- /Members display -->
   </div>  
   <%= link_to "Members (#{@group.memberships.count})", group_members_path(@group), class: "btn btn-warning btn-sm btn-block" %>
+</div>
+
+<div class="row justify-content-center">
+  <div class="card mb-2 mx-1 my-1 card-bg" style="width: 36rem;">
+    <h3 class="card-header bg-warning text-center font-weight-bold">Latest Posts</h3>
+    <div class="card-body text-center">
+      <%= link_to "New Post", new_post_path(group_id: @group.id), class: "btn btn-sm btn-warning" %>
+      <% @group.posts.each do |post| %>
+        <div class="card border border-warning  mx-1 my-3" style="width: 32 rem;">
+          <div class="card-header text-center mt-1">
+            <h6 class="font-weight-bold" ><%= post.title %></h6>
+            <small><%= link_to "Edit Post", edit_post_path(post, group_id: @group.id), class: "btn btn-sm btn-warning" %>
+            <%= link_to 'Delete', post_path(post, group_id: @group.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %></small>
+          </div>
+
+          <div class="card-body text-center">
+          <small class="card-title"><%= post.created_at.to_date %></small>
+            <p class="card-text mt-2"><%= post.content%></p>
+          </div>
+
+          <!-- Post likes -->
+          <%= render "users/likes", post: post %>
+
+          <!-- Post comments -->
+          <%= render "users/comments", post: post %>
+
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

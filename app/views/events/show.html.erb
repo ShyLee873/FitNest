@@ -1,34 +1,70 @@
 <p class="text-center" id="notice"><%= notice %></p>
 
 <div class="container">
-  <div class="row justify-content-md-center mx-2 my-5 pl-5 pr-2">
-    <div class="col text-center mb-3">
-      <div class="card text-center mb-2 card-bg "> 
-        <div class="card-header border-warning bg-warning justify-content-around d-flex">
-          <h3 class="text-center font-weight-bold"><%= @event.date.strftime("%m/%d/%Y")  %></h3>
-          <h3 class="text-center font-weight-bold"><%= @event.title %></h3>
+  <div class="row justify-content-between align-items-center">
+    <h2>Event Details</h2>
+    <% if current_user.admin_role? || current_user.moderator_role? %>
+      <div class="text-center d-flex justify-content-around">
+        <%= link_to "Edit Event", edit_group_event_path(@group, @event), class: "btn btn-warning btn-sm mr-2" %>
+        <%= link_to "Destroy Event", group_event_path(@group, @event), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger text-light btn-sm" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="row justify-content-md-center my-3">
+    <div class="card mb-2 card-bg ">   
+      <div>
+        <div class="border-warning bg-warning pt-2">
+          <h4 class="pl-4 font-weight-bold text-center"><%= @event.title %></h4>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div class="text-center mb-3 mr-4">
+              <%= image_tag "event.jpg", class: "event-img"%>
+            </div>
+            <div>
+              <div class="d-flex justify-content-start">
+                <i class="fa fa-calendar-check mr-4 text-secondary"></i>
+                <div>
+                  <p class="font-weight-bold mb-0">Begins:</p>
+                  <p><%= @event.date.strftime("%A, %B %d, %Y at %I:%M%p") %></p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-start">
+                <i class="fa fa-comment mr-4 text-secondary"></i>
+                <div>
+                  <p class="font-weight-bold mb-0">Description:</p>
+                  <p><%= @event.body %></p>
+                </div>
+              </div>
+              <div class="d-flex justify-content-start">
+                <i class="fa fa-map-marker mr-4 text-secondary"></i>
+                <div class="pl-1">
+                  <p class="font-weight-bold mb-0">Location:</p>
+                  <p>Latitude: <%= @event.latitude %>, Longitude: <%= @event.longitude %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body card-bg col-10 mx-auto mb-4">
+          <%= image_tag "httdivs://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&center=#{@event.latitude},#{@event.longitude}&key=#{Rails.application.credentials.google_maps_api_key}", alt: "Map" %>
+        </div>
+        <div class="card-footer border-warning bg-warning text-center">
         </div>
       </div>
-      <div class="card-body card-bg">
-        <%= @event.body %>
-      </div>
-      <p>
-<%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&center=#{@event.latitude},#{@event.longitude}&key=#{Rails.application.credentials.google_maps_api_key}", alt: "Map" %>
-</p>
-      <div class="card-body card-bg">
-        <%= @event.longitude %>
-      </div>
-      <div class="card-body card-bg">
-        <%= @event.latitude %>
-      </div>
-      <div class="card-footer border-warning bg-warning text-center">
-        <h6 class="font-weight-bold">
-        </h6>
-      </div>
-    </div>
-
-    <div class="card-body text-center">
-       <%= link_to "Edit Event", edit_group_event_path(@group, @event), class: "btn btn-warning btn-sm btn-block" %>  
     </div>
   </div>
+  <div class="row justify-content-center mb-3 pb-3">
+    <%= link_to 'Back to Group', group_path(@group), class: "btn btn-sm btn-warning" %>
+  </div>
+
+  <!-- Event comments -->
+  <% if !@event.comments.exists? %>
+  <div class="my-2 text-center">
+    <small class="mx-auto">Be the first to comment!</small>
+  </div>
+  <% elsif @event.comments.exists? %>
+    <%= render partial: "comments/comments", locals: { commentable: @event } %>
+  <% end %>
+  <%= render partial: "comments/form", locals: { commentable: @event } %>
 </div>

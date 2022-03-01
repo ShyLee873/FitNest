@@ -26,10 +26,8 @@ body {
 }
 
 .avatar {
-    height: 300px; 
-    width: 300px; 
-    max-width: 300px; 
-    max-height: 300px;
+    height: auto; 
+    max-width: 200px;
 }
 
 .thumbnail {
@@ -71,7 +69,7 @@ body {
 }
 
 .footer {
-    position: fixed;
+    position: sticky;
     width: 100%;
     left: 0;
     bottom: 0;

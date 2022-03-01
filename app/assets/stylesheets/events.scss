@@ -3,5 +3,19 @@
 }
 
 .event-link:hover {
-  color: rgb(8, 13, 110);
+  color: #000;
+  background-color: none;
+  text-decoration: none;
+}
+
+.today-date {
+  color: rgb(221, 95, 36)
+}
+
+.button_to {
+  margin-right: 5px;
+}
+
+.event-img {
+  width: 250px;
 }

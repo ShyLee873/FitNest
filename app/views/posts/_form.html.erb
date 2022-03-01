@@ -1,4 +1,9 @@
 <%= form_with(model: post) do |form| %>
+  <% if post.postable_type == "User"%>
+    <%= hidden_field_tag :user_id, @user_group.id %>
+  <% else %>
+    <%= hidden_field_tag :group_id, @user_group.id %>
+  <% end %>
   <% if post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -10,9 +15,9 @@
       </ul>
     </div>
   <% end %>
-  <div class="container mb-3>
+  <div class="container mb-3">
     <div class="card">
-      <div class="card-body">      
+      <div class="card-body">
         <div class="mb-2">
           <%= form.label :title, {class: "form-label font-weight-bold"} %>
           <%= form.text_field :title, {class: "form-control", placeholder: "Enter title"} %>
@@ -23,16 +28,8 @@
           <%= form.text_area :content,  {class: "form-control", placeholder: "Feel free to format with basic HTML! (line breaks with <br>)", size: "30x10"} %>
         </div>
 
-        <div class="field">
-          <% if @user_id.present? %>
-            <%= form.hidden_field :user_id, value: @user_id.to_s %>
-          <% elsif @post.user_id === nil%>
-            <%= form.hidden_field :user_id, value: @post.user_id %>
-          <% end %>
-        </div>
-
         <div class="actions">
-          <%= form.submit "Post", class: "btn btn-block btn-warning" %>
+          <%= form.submit class: "btn btn-block btn-warning" %>
         </div>
       </div>  
     </div>  

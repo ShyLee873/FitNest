@@ -6,13 +6,17 @@ Rails.application.routes.draw do
   resources :groups do
     resources :events
   end
+
+  resources :events do
+    resources :comments
+  end
+  
   resources :posts do
     resources :likes
     resources :comments, module: :posts
   end
   resources :users
   
-  get '/posts/new/:user_id', to: 'posts#new', as: 'new_user_post'
   get '/groups/:id/members', to: 'groups#members', as: 'group_members'
   get '/search', to: 'groups#search'
   

@@ -1,21 +1,29 @@
-<button class="btn btn-light btn-sm mt-2" type="button" data-toggle="collapse" data-target="#comments" aria-expanded="false" aria-controls="comments">View All Comments</button>
+<button class="btn btn-light btn-sm mt-2  mb-3 mx-auto" type="button" data-toggle="collapse" data-target="#comments" aria-expanded="false" aria-controls="comments">
+View All Comments ( <%= "#{commentable.comments.count} " %>)</button>
 
 <div class="card-colums">
   <div class="collapse multi-collapse" id="comments">
     
     <% commentable.comments.each do |comment| %>
       <div class="card my-2">
-        <div class="row justify-content-center">
-          <div class="col-sm-2 py-1">
-            <h6 class="font-weight-bold"><%= current_user.first_name %></h6>
-            <%= image_tag current_user.avatar, class: "thumbnail" %>
-            <small><%= link_to "delete", [commentable, comment], method: :delete, class:"text-muted" %></small> 
+        <div class="row justify-content-around">
+          <div class="col-2 py-2 mx-auto text-center">
+            <% if current_user.avatar.attached? %>
+             <%= image_tag current_user.avatar, class: "thumbnail" %>
+            <%else%>
+              <%= image_tag "user_ph.jpg", class: "thumbnail"%>
+            <%end%>
           </div>
-          <div class="col-md my-auto text-left">     
-            <%= comment.body %>
+          <div class="col my-auto text-left">  
+            <h6 class="font-weight-bold"><%= current_user.first_name %> <small class="font-italic font-weight-light pb-1 pl-1"><%= " |  #{time_ago_in_words(comment.created_at)} ago" %></small></h6> 
+          <%= comment.body %>
           </div>  
-        </div> 
-        <small class="font-italic font-weight-light pb-1"><%= "#{time_ago_in_words(comment.created_at)} ago" %></small>
+        </div>
+        <div class="row justify-content-around">
+        <small><%= link_to "delete", [commentable, comment], method: :delete, class:"text-muted" %></small> 
+        
+        </div>
+    
       </div>  
     <% end %>
   </div>
