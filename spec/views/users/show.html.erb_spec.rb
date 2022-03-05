@@ -21,10 +21,9 @@ RSpec.describe "users/show", type: :view do
   end
 
 
-  it "has Back, Edit Profile, New Post links, join button" do
+  it "has  Edit Profile, New Post links, join button" do
     expect(rendered).to have_link("New Post")
     expect(rendered).to have_link("Edit Profile")
-    expect(rendered).to have_link("Back")
     assert_select "input[type=?]", "submit"
     assert_select "input[value=?]", "join"
   end

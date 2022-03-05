@@ -19,7 +19,7 @@ RSpec.describe "groups/show", type: :view do
     expect(rendered).to have_text "Members"
     expect(rendered).to have_text "Past events"
     expect(rendered).to have_text "Create event"
-    expect(rendered).to have_text "Upcoming events"
+    expect(rendered).to have_text "All current and upcoming events"
   end
 
    it "has Show, Edit, Destroy, New Post links" do
@@ -28,7 +28,7 @@ RSpec.describe "groups/show", type: :view do
     expect(rendered).to have_link("Back")
     expect(rendered).to have_link("Past events")
     expect(rendered).to have_link("Create event")
-    expect(rendered).to have_link("Upcoming events")
+    expect(rendered).to have_link("All current and upcoming events")
 
    end
 
