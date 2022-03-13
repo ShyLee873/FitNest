@@ -80,6 +80,7 @@
               <p class="card-text"><%= simple_format(@user.about_me) %></p>
             <% end %>
 
+            <small><%= link_to "Edit Profile", edit_user_path(@user), class:"text-warning" %></small>  
           </div>
         </div>
       </div>
