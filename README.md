@@ -1,4 +1,4 @@
-# Fitnest
+# FitNest
 
 [fitnest-heroku.herokuapp.com](https://fitnest-heroku.herokuapp.com)
 
